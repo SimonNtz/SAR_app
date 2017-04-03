@@ -90,7 +90,7 @@ def writeFiles(target, strStep):
     # <FIX>:  fix this path
     ofile = '/home/' + filename + strStep
     if target:
-        ProductIO.writeProduct(target, ofile, 'BEAM-DIMAP')   # <Optional> change to other types here: BEAM-DIMAP, GeoTIFF-BigTIFF, etc.
+        ProductIO.writeProduct(target, ofile, 'GeoTIFF-BigTIFF')   # <Optional> change to other types here: BEAM-DIMAP, GeoTIFF-BigTIFF, etc.
 
 
 def calibration():

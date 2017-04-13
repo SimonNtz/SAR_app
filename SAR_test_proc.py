@@ -1,4 +1,3 @@
-
 import os,sys
 sys.path.append('/home/snap-engine/snap-python/src/main/resources/snappy')
 import snappy

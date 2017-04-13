@@ -6,7 +6,7 @@ from snappy import GPF
 from snappy import HashMap
 jpy = snappy.jpy
 import matplotlib
-#matplotlib.use('GTK')
+matplotlib.use('Agg')
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy

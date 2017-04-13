@@ -3,6 +3,8 @@ sys.path.append('/home/snap-engine/snap-python/src/main/resources/snappy')
 import snappy
 from snappy import GPF
 from snappy import HashMap
+from snappy import ProgressMonitor
+from snappy import ProductIO
 jpy = snappy.jpy
 import matplotlib
 matplotlib.use('Agg')

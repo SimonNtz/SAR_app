@@ -151,5 +151,3 @@ for lineartodb in lineartodbs :
     plt.close()
     #del calibrates, terrrains, speckles, lineartodbs
     gc.collect()
-
-                                                                                                    198,0-1       Bot

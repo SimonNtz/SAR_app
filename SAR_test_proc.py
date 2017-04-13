@@ -88,7 +88,6 @@ parameters.put('enl', 1.0)
 
 speckles = []
 
-                                                                                                96,0-1        31%
 for calibrate in calibrates:
 
     speckle = GPF.createProduct('Speckle-Filter', parameters, calibrate)

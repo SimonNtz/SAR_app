@@ -137,6 +137,8 @@ def printBand(product, band, vmin, vmax):
     band.readPixels(0, 0, w, h, band_data)
 
     band_data.shape = h, w
+    name = product.getName()
+
     plt.imshow(rot_crop(band_data, -10.75), cmap=plt.cm.binary_r, vmin=vmin, vmax=vmax)
     plt.axis('off')
     plt.tight_layout(pad=0, w_pad=0, h_pad=0)
@@ -146,6 +148,9 @@ def printBand(product, band, vmin, vmax):
     plt.clf()
 
 for lineartodb in lineartodbs :
-    imgplot = printBand(lineartodb, 'Sigma0_VV_db', -25, 5)
+    printBand(lineartodb, 'Sigma0_VV_db', -25, 5)
+     plt.close()
+    del calibrates, terrrains, speckles, lineartodbs
+    gc.collect()
 
                                                                                                     198,0-1       Bot

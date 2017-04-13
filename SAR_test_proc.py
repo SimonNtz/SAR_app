@@ -145,7 +145,6 @@ def printBand(product, band, vmin, vmax):
     plt.savefig(name + '.png', frameon=False)
     #plt.show()
     print('Printed!')
-    plt.clf()
 
 for lineartodb in lineartodbs :
     printBand(lineartodb, 'Sigma0_VV_db', -25, 5)

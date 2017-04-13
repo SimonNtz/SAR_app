@@ -6,7 +6,7 @@ from snappy import GPF
 from snappy import HashMap
 jpy = snappy.jpy
 import matplotlib
-matplotlib.use('GTK')
+#matplotlib.use('GTK')
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
@@ -14,12 +14,11 @@ from scipy import ndimage
 
 #s1paths = ( "S1A_IW_GRDH_1SDV_20151226T182813_20151226T182838_009217_00D48F_5D5F", "S1A_IW_GRDH_1SDV_20160424T182813_20160424T182838_010967_010769_AA98", "S1A_IW_GRDH_1SDV_20160518T182817_20160518T182842_011317_011291_936E", "S1A_IW_GRDH_1SDV_20160611T182819_20160611T182844_011667_011DC0_391B", "S1A_IW_GRDH_1SDV_20160705T182820_20160705T182845_012017_0128E1_D4EE", "S1A_IW_GRDH_1SDV_20160729T182822_20160729T182847_012367_013456_E8BF", "S1A_IW_GRDH_1SDV_20160822T182823_20160822T182848_012717_013FFE_90AF", "S1A_IW_GRDH_1SDV_20160915T182824_20160915T182849_013067_014B77_1FCD" )
 
-#todo veryfy with zipped files
-s1paths = [sys.argv[1]]
+#TODO check with zipped files
+s1paths = list(sys.argv[1].split(','))
 s1meta = "manifest.safe"
 
 products = []
-print(s1paths)
 
 for s1path in s1paths:
 
@@ -124,10 +123,10 @@ def rot_crop(c, ang):
     rot_c = ndimage.rotate(c, ang)
     lx, ly = rot_c.shape
     crop_rot =  rot_c[lx/3:-lx/3, ly/4:-ly/4]
-   # rotate_lena_noreshape = ndimage.rotate(c, ang, reshape=False)
     return(rot_c)
 
 
+#TODO Try to use ImageIO instead of pyplot
 def printBand(product, band, vmin, vmax):
 
     band = product.getBand(band)
@@ -138,11 +137,13 @@ def printBand(product, band, vmin, vmax):
     band.readPixels(0, 0, w, h, band_data)
 
     band_data.shape = h, w
-    imgplot = plt.imshow(rot_crop(band_data, -10.75), cmap=plt.cm.binary_r, vmin=vmin, vmax=vmax)
+    plt.imshow(rot_crop(band_data, -10.75), cmap=plt.cm.binary_r, vmin=vmin, vmax=vmax)
     plt.axis('off')
-    plt.savefig(name + '.png')#,bbox_inches='tight',frameon=False, transparent=True,pad_inches=0)
-    plt.show()
+    plt.tight_layout(pad=0, w_pad=0, h_pad=0)
+    plt.savefig(name + '.png', frameon=False)
+    #plt.show()
     print('Printed!')
+    plt.clf()
 
 for lineartodb in lineartodbs :
     imgplot = printBand(lineartodb, 'Sigma0_VV_db', -25, 5)

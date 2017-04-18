@@ -2,9 +2,9 @@
 
 #curl -o S1A_IW_GRDH_1SDV_20151226T182813_20151226T182838_009217_00D48F_5D5F.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('2b23bee5-f1c4-416c-84df-21bb07473a21')/\$value"
 
-curl -o S1A_IW_GRDH_1SDV_20160424T182813_20160424T182838_010967_010769_AA98.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('43273dc2-169c-4b35-9d53-36666888d6b8')/\$value"
+#curl -o S1A_IW_GRDH_1SDV_20160424T182813_20160424T182838_010967_010769_AA98.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('43273dc2-169c-4b35-9d53-36666888d6b8')/\$value"
 
-#curl -o S1A_IW_GRDH_1SDV_20160518T182817_20160518T182842_011317_011291_936E.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('bc4df2fa-e98a-4a44-9547-d7c73878cdc9')/\$value"
+curl -o S1A_IW_GRDH_1SDV_20160518T182817_20160518T182842_011317_011291_936E.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('bc4df2fa-e98a-4a44-9547-d7c73878cdc9')/\$value"
 
 #curl -o S1A_IW_GRDH_1SDV_20160611T182819_20160611T182844_011667_011DC0_391B.zip -u SimonNtz:mario1992 -LkJ0 "https://scihub.copernicus.eu/dhus/odata/v1/Products('a81b953b-0332-43ef-8103-4c4b9b89b827')/\$value"
 

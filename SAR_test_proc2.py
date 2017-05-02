@@ -61,10 +61,11 @@ parameters.put('copyMetadata', True)
 parameters.put('geoRegion', geom)
 
 subsets = []
+progessBar = createProgressMonitor()
 
 for product in products:
 
-    subset = GPF.createProduct('Subset', parameters, product, createProgressMonitor())
+    subset = GPF.createProduct('Subset', parameters, product)
     subsets.append(subset)
 
 # Step 1: Pre-processing - Calibration
@@ -79,7 +80,7 @@ calibrates = []
 
 for subset in subsets:
 
-    calibrate = GPF.createProduct('Calibration', parameters, subset)
+    calibrate = GPF.createProduct('Calibration', parameters, subset, progessBar)
     calibrates.append(calibrate)
 
 # Step 2: Pre-processing - Speckle filtering

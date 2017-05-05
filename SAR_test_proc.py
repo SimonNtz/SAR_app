@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 import scipy
 from scipy import ndimage
 import gc
-#s1paths = ( "S1A_IW_GRDH_1SDV_20151226T182813_20151226T182838_009217_00D48F_5D5F", "S1A_IW_GRDH_1SDV_20160424T182813_20160424T182838_010967_010769_AA98", "S1A_IW_GRDH_1SDV_20160518T182817_20160518T182842_011317_011291_936E", "S1A_IW_GRDH_1SDV_20160611T182819_20160611T182844_011667_011DC0_391B", "S1A_IW_GRDH_1SDV_20160705T182820_20160705T182845_012017_0128E1_D4EE", "S1A_IW_GRDH_1SDV_20160729T182822_20160729T182847_012367_013456_E8BF", "S1A_IW_GRDH_1SDV_20160822T182823_20160822T182848_012717_013FFE_90AF", "S1A_IW_GRDH_1SDV_20160915T182824_20160915T182849_013067_014B77_1FCD" )
 
 #TODO check with zipped files
 s1paths = list(sys.argv[1].split(','))
@@ -43,7 +42,6 @@ for product in products:
 
 
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
-
 geom = WKTReader().read('POLYGON((-4.51 14.69,-4.477 14.227,-4.076 14.243,-4.054 14.642,-4.51 14.69))');
 
 HashMap = jpy.get_type('java.util.HashMap')
@@ -52,6 +50,12 @@ GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
 parameters = HashMap()
 parameters.put('copyMetadata', True)
 parameters.put('geoRegion', geom)
+
+parameters.put('height', floor(height/8))
+parameters.put('width', floor(width/8))
+
+#parameters.put('regionX',500)
+#parameters.put('regionY',500)
 
 subsets = []
 

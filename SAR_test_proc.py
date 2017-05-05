@@ -51,8 +51,8 @@ parameters = HashMap()
 parameters.put('copyMetadata', True)
 parameters.put('geoRegion', geom)
 
-parameters.put('height', floor(height/8))
-parameters.put('width', floor(width/8))
+parameters.put('height', np.floor(height/8))
+parameters.put('width', np.floor(width/8))
 
 #parameters.put('regionX',500)
 #parameters.put('regionY',500)

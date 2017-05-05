@@ -160,4 +160,4 @@ for lineartodb in lineartodbs :
     #del calibrates, terrrains, speckles, lineartodbs
     gc.collect()
 
-print("processing time: " + str(time.time()-s_t))
+print("processing time: " + str(time.time()-start_time))

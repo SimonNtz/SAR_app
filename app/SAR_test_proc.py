@@ -45,9 +45,13 @@ for product in products:
 
 
 
+
+
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
 geom = WKTReader().read('POLYGON((-4.51 14.69,-4.477 14.227,-4.076 14.243,-4.054 14.642,-4.51 14.69))');
 
+sub_height = np.floor(height/8)
+sub_weight = np.floor(width/8)
 HashMap = jpy.get_type('java.util.HashMap')
 GPF.getDefaultInstance().getOperatorSpiRegistry().loadOperatorSpis()
 
@@ -55,8 +59,10 @@ parameters = HashMap()
 parameters.put('copyMetadata', True)
 parameters.put('geoRegion', geom)
 
-parameters.put('height', np.floor(height/8))
-parameters.put('width', np.floor(width/8))
+parameters.put('height', sub_height)
+parameters.put('width', sub_weight)
+
+print("Subset dimension: %d x %d pixels" % (sub_weight, sub_height))
 
 #parameters.put('regionX',500)
 #parameters.put('regionY',500)
@@ -160,4 +166,4 @@ for lineartodb in lineartodbs :
     #del calibrates, terrrains, speckles, lineartodbs
     gc.collect()
 
-print("processing time: " + str(time.time()-start_time))
+print("processing time: " + str(time.time()-start_time) + "seconds")

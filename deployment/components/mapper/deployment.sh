@@ -36,8 +36,8 @@ set_s3() {
     host_base = sos.exo.io
     host_bucket = %(bucket)s.sos.exo.io
 
-    access_key = MEKtgh8swrU1wVU4Qf7aYKFVVxUOB_cLvsoW25pQMsJxYI6J6Y4UuK-SfeFdaZs-l8YEnblF3WXd0_4t9igmsA
-    secret_key = tK6TQqsD6qGOtBuQwPyTivLNm4_PTW572b7iijiZAOO-oT6-IkywYttvix1d3tOSZuqiAhtzHoLLYD76tMBHZw
+    access_key = $$
+    secret_key = $$
 
     use_https = True
     signature_v2 = True
@@ -94,7 +94,7 @@ create_cookie(){
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-*$@"
+"$@"
 #nuv.la	FALSE	/	TRUE	1495616337	com.sixsq.slipstream.cookie	token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbW9uMTk5MiIsInJvbGVzIjoiVVNFUiBBTk9OIiwiZXhwIjoxNDk1NjE2MzM3fQ.SRdnhjIJuRu66MXKSUkUrwIh8_NGggG2plhg9RwxuPt2PZv1BMKmeBYPDuFE9gCl5sVMImDA4HLV8X5e2LSAbfkFIhBcm9B_7kCu0x9ZkwAo7mmeurC6JBwUg3n4PMTYnX-Cz_UeSgxYjbT-C7RhGQT0cKog9ZOL538vdktuG6WuLUEp8IpyrVKKc5yOTvXmK71s0tO1hhf-IEq7hd31CHmO__1iRA1wcxt1Bl2Kn4rkSNb_JOBfyQw__lv-Y3gGk2YOev5ly5rX5JySIUCGtKCfmPmrj4zIV5_UYGFl_o2PdmMOIRNK0GIR7wlpTN0uIyawKabr2YcwRvCA8OFOdA
 EOF
 }
@@ -148,5 +148,3 @@ run_proc
 post_event "mapper.$id: is sending output to reducer"
 push_product
 ss-set ready true
-
-                                                                      

@@ -102,7 +102,6 @@ EOF
 
 set_s3() {
     S3_CFG=~/.s3cfg
-    #S3_BUCKET=s3://eodata
     cat > $S3_CFG <<EOF
 
     host_base = sos.exo.io
@@ -125,3 +124,5 @@ configure_python_interface
 set_S3
 create_cookie "`ss-get nuvla_token`"
 install_slipstream_api
+
+sudo rm -rf /var/lib/cloud/instance/sem/*

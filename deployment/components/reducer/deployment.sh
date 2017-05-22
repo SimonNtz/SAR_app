@@ -112,7 +112,7 @@ if [ -z "$ids" ]; then
 else
    set_listeners $ids
    check_ready
-  #  create_cookie "`ss-get nuvla_token`"
+   create_cookie "`ss-get nuvla_token`"
   #  install_slipstream_api
   #  cat cookies-nuvla.txt
 

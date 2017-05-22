@@ -4,11 +4,6 @@
 # For Ubuntu distribution Version 16.04 LTS
 #
 
-set -e
-set -x
-set -o pipefail
-
-
 gh=https://raw.githubusercontent.com
 branch=master
 
@@ -25,41 +20,36 @@ IFS=' ' read -r -a my_product <<< "$my_product"
 echo ${my_product[@]}
 
 
-S3_CFG=~/.s3cfg
-S3_BUCKET=s3://eodata
-set_s3() {
-
-    #apt-get -y install s3cmd
-    cat > $S3_CFG <<EOF
-
-    [default]
-    host_base = sos.exo.io
-    host_bucket = %(bucket)s.sos.exo.io
-
-    access_key = $$
-    secret_key = $$
-
-    use_https = True
-    signature_v2 = True
-
-EOF
-
-(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-
-}
+# S3_CFG=~/.s3cfg
+# S3_BUCKET=s3://eodata
+# set_s3() {
+#
+#     #apt-get -y install s3cmd
+#     cat > $S3_CFG <<EOF
+#
+#     [default]
+#     host_base = sos.exo.io
+#     host_bucket = %(bucket)s.sos.exo.io
+#
+#     access_key = $S3_ACCESS_KEY
+#     secret_key = $S3_SECRET_KEY
+#
+#     use_https = True
+#     signature_v2 = True
+#
+# EOF
+#
+# (printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
+#
+# }
 
 get_data() {
 
-    #curl -o sarget.sh -sSfL $gh/SimonNtz/SAR_app/$branch/app/sarget.sh
-    #for i in ${my_product[@]}; do
-        #bash sarget.sh -u SimonNtz -p mario1992 -F $i -o product -O /home/data
-    #done
     echo $(date)
     for i in ${my_product[@]}; do
         s3cmd get --recursive $S3_BUCKET/$i.SAFE
     done
     echo $(date)
-    #unzip $i.zip
 
 }
 
@@ -74,8 +64,7 @@ run_proc() {
    #TODO clear .snap/var/temp/cache files
 }
 
-
-#Push product to reducer using netcat
+# Use Netcat to push the output to the reducer
 push_product() {
     nc $reducer_ip 808$id < $id.png
 }
@@ -87,7 +76,8 @@ install_slipstream_api(){
     ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
 }
 
-# HARDCODED cookie
+# Retrieve the client's Nuvla token through the application component parameters
+
 create_cookie(){
     cat >cookies-nuvla.txt<<EOF
 # Netscape HTTP Cookie File
@@ -95,13 +85,11 @@ create_cookie(){
 # This is a generated file!  Do not edit.
 
 "$@"
-#nuv.la	FALSE	/	TRUE	1495616337	com.sixsq.slipstream.cookie	token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbW9uMTk5MiIsInJvbGVzIjoiVVNFUiBBTk9OIiwiZXhwIjoxNDk1NjE2MzM3fQ.SRdnhjIJuRu66MXKSUkUrwIh8_NGggG2plhg9RwxuPt2PZv1BMKmeBYPDuFE9gCl5sVMImDA4HLV8X5e2LSAbfkFIhBcm9B_7kCu0x9ZkwAo7mmeurC6JBwUg3n4PMTYnX-Cz_UeSgxYjbT-C7RhGQT0cKog9ZOL538vdktuG6WuLUEp8IpyrVKKc5yOTvXmK71s0tO1hhf-IEq7hd31CHmO__1iRA1wcxt1Bl2Kn4rkSNb_JOBfyQw__lv-Y3gGk2YOev5ly5rX5JySIUCGtKCfmPmrj4zIV5_UYGFl_o2PdmMOIRNK0GIR7wlpTN0uIyawKabr2YcwRvCA8OFOdA
 EOF
 }
 
 # Require 'cookies-nuvla.txt' to exist and be valid
 post_event() {
-    cat >pyScript.py<<EOF
 import sys
 from slipstream.api import Api
 api = Api(cookie_file='/home/cookies-nuvla.txt')
@@ -137,10 +125,10 @@ get_timestamp() {
 
 reducer_ip=`ss-get reducer:hostname`
 
-create_cookie "`ss-get reducer:nuvla_token`"
-install_slipstream_api
-cat cookies-nuvla.txt
-set_s3
+# create_cookie "`ss-get reducer:nuvla_token`"
+# install_slipstream_api
+# cat cookies-nuvla.txt
+# set_s3
 post_event "mapper.$id: starts downloading $my_product"
 get_data
 post_event "mapper.$id: starts image processing"

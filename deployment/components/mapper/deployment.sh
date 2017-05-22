@@ -90,6 +90,7 @@ EOF
 
 # Require 'cookies-nuvla.txt' to exist and be valid
 post_event() {
+  cat >pyScript.py<<EOF
 import sys
 from slipstream.api import Api
 api = Api(cookie_file='/home/cookies-nuvla.txt')

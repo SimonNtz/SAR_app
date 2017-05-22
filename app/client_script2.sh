@@ -3,7 +3,7 @@
 #TODO verify SS-client install
 
 #Recover token in cookies-nuvla.txt
-#slipstream login -u simon1992 -p 12mc0v2ee64o9
+slipstream login -u $SLIPSTREAM_USERNAME -p $SLIPSTREAM_PASSWORD
 
 NUVLA_TOKEN=`cat ~/.slipstream/cookies-nuvla.txt | grep -v \#`
 

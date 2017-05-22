@@ -4,8 +4,6 @@
 # For Ubuntu distribution Version 16.04 LTS
 #
 
-set -e
-set -x
 
 #riemann_host=`ss-get autoscaler_hostname`
 #riemann_port=5555
@@ -41,15 +39,14 @@ mvn clean install -U -Dmaven.test.skip=true
 cd ../snap-installer
 mvn clean install -U -Dmaven.test.skip=true
 
-
 wget http://download-keycdn.ej-technologies.com/install4j/install4j_linux_6_1_5.deb
 dpkg -i install4j_linux_6_1_5.deb
 
-TRIAL_KEY='E-M6-SIMON#842657-2017.06.26-90-332ybvu3qrrty9#2938'
+# TRIAL_KEY='E-M6-SIMON#842657-2017.06.26-90-332ybvu3qrrty9#2938'
 
 cp -rp jres/* /opt/install4j6/jres
 
-install4jc -L $TRIAL_KEY
+install4jc -L $INSTAL4j_TRIAL_KEY
 install4jc snap.install4j -m unixInstaller
 
 chmod +x target/esa-snap_all_unix_6_0-SNAPSHOT.sh
@@ -88,10 +85,43 @@ deploy_and_run_riemann_client() {
 
 install_slipstream_api(){
     pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
+    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
+    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
+    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
+}
+
+create_cookie(){
+    cat >cookies-nuvla.txt<<EOF
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+"$@"
+EOF
+}
+
+set_s3() {
+    S3_CFG=~/.s3cfg
+    #S3_BUCKET=s3://eodata
+    cat > $S3_CFG <<EOF
+
+    host_base = sos.exo.io
+    host_bucket = %(bucket)s.sos.exo.io
+
+    access_key = $S3_ACCESS_KEY
+    secret_key = $S3_SECRET_KEY
+
+    use_https = True
+    signature_v2 = True
+
+EOF
+
+(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
+
 }
 
 install_S1_toolbox
 configure_python_interface
-#install_slipstream_api
-
-sudo rm -rf /var/lib/cloud/instance/sem/*
+set_S3
+create_cookie "`ss-get nuvla_token`"
+install_slipstream_api

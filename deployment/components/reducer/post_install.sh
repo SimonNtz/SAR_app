@@ -3,8 +3,6 @@
 set_s3() {
     S3_CFG=~/.s3cfg
     cat > $S3_CFG <<EOF
-
-    [default]
     host_base = sos.exo.io
     host_bucket = %(bucket)s.sos.exo.io
 

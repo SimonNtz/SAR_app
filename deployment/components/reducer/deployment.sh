@@ -1,27 +1,27 @@
 #!/bin/bash
 cd /home
 
-# S3_CFG=~/.s3cfg
+
+set_s3() {
+
+S3_CFG=~/.s3cfg
 # S3_BUCKET=s3://eodata_output
 
-# set_s3() {
-#
-#     cat > $S3_CFG <<EOF
-#
-#     [default]
-#     host_base = sos.exo.io
-#     host_bucket = %(bucket)s.sos.exo.io
-#
-#     access_key = $$
-#     secret_key = $$
-#     use_https = True
-#     signature_v2 = True
-#
-# EOF
-#
-# (printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-#
-# }
+    cat > $S3_CFG <<EOF
+
+    host_base = sos.exo.io
+    host_bucket = %(bucket)s.sos.exo.io
+
+    access_key = $$
+    secret_key = $$
+    use_https = True
+    signature_v2 = True
+
+EOF
+
+#(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
+
+}
 
 # install_slipstream_api(){
 #     pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip

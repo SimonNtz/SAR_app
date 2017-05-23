@@ -20,28 +20,28 @@ IFS=' ' read -r -a my_product <<< "$my_product"
 echo ${my_product[@]}
 
 
-# S3_CFG=~/.s3cfg
-# S3_BUCKET=s3://eodata
-# set_s3() {
-#
-#     #apt-get -y install s3cmd
-#     cat > $S3_CFG <<EOF
-#
-#     [default]
-#     host_base = sos.exo.io
-#     host_bucket = %(bucket)s.sos.exo.io
-#
-#     access_key = $S3_ACCESS_KEY
-#     secret_key = $S3_SECRET_KEY
-#
-#     use_https = True
-#     signature_v2 = True
-#
-# EOF
-#
-# (printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-#
-# }
+
+
+set_s3() {
+
+S3_CFG=~/.s3cfg
+#S3_BUCKET=s3://eodata
+    cat > $S3_CFG <<EOF
+
+    host_base = sos.exo.io
+    host_bucket = %(bucket)s.sos.exo.io
+
+    access_key = $S3_ACCESS_KEY
+    secret_key = $S3_SECRET_KEY
+
+    use_https = True
+    signature_v2 = True
+
+EOF
+
+#(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
+
+}
 
 get_data() {
 
@@ -129,7 +129,7 @@ reducer_ip=`ss-get reducer:hostname`
 create_cookie "`ss-get reducer:nuvla_token`"
 # install_slipstream_api
 # cat cookies-nuvla.txt
-# set_s3
+set_s3
 post_event "mapper.$id: starts downloading $my_product"
 get_data
 post_event "mapper.$id: starts image processing"

@@ -37,7 +37,7 @@ EOF
 }
 
 set_s3
-install_slipstream_api
+#install_slipstream_api
 #create_cookie "`ss-get nuvla_token`"
 
 sudo rm -rf /var/lib/cloud/instance/sem/*

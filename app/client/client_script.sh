@@ -1,23 +1,17 @@
-#!/env/bin bash
+#!/bin/bash
 
-#pip install slipstream-client
-#pip install slipstream-cli
+#TODO verify SS-client install
 
-#for a system-level installation. If you don’t have administrator access to your machine,
+#Recover token in cookies-nuvla.txt
+slipstream login -u $SLIPSTREAM_USERNAME -p $SLIPSTREAM_PASSWORD
 
-#you can also perform a user-level installation:
+NUVLA_TOKEN=`cat ~/.slipstream/cookies-nuvla.txt | grep -v \#`
 
-#pip install --user slipstream-client
+CLOUD='eo-cesnet-cz1'
+#CLOUD='ec2-eu-west'
 
-source user_info.md
-alias ss-curl="curl --cookie-jar ~/cookies -b ~/cookies -sS"
+INPUT_SIZE=`cat product_list.cfg | wc -l`
+INPUT_LIST=`cat product_list.cfg`
 
-ss-curl https://nuv.la/auth/login \
-    -D - \
-    -o /dev/null \
-    -XPOST \
-    -d "username=$SLIPSTREAM_USERNAME" \
-    -d "password=$SLIPSTREAM_PASSWORD"
-
-ss-get-user ss-get-user
-#ss-execute --parameters="mapper:multiplicity=3","mapper:cloudservice=eo-cesnet-cz1","reducer:cloudservice=eo-cesnet-cz1" EO_Sentinel_1/procSAR
+ss-execute --parameters="mapper:multiplicity=$INPUT_SIZE","mapper:product_url='$INPUT_LIST'","mapper:cloudservice=$CLOUD","reducer:cloudservice=$CLOUD","reducer:nuvla_token='$NUVLA_TOKEN'" --keep-running="always" EO_Sentinel_1/procSAR
+#ss-execute --parameters="mapper:multiplicity=3","mapper:product_url='$INPUT_LIST'","mapper:cloudservice=eo-cesnet-cz1","reducer:cloudservice=eo-cesnet-cz1" EO_Sentinel_1/procSAR

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export SLIPSTREAM_USERNAME=simon1992
-export SLIPSTREAM_PASSWORD=12mc0v2ee64o9

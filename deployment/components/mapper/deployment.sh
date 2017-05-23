@@ -22,32 +22,32 @@ echo ${my_product[@]}
 
 
 
-set_s3() {
-
-S3_CFG=~/.s3cfg
-#S3_BUCKET=s3://eodata
-    cat > $S3_CFG <<EOF
-
-    host_base = sos.exo.io
-    host_bucket = %(bucket)s.sos.exo.io
-
-    access_key = $S3_ACCESS_KEY
-    secret_key = $S3_SECRET_KEY
-
-    use_https = True
-    signature_v2 = True
-
-EOF
-
-#(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-
-}
+# set_s3() {
+#
+# S3_CFG=~/.s3cfg
+# #S3_BUCKET=s3://eodata
+#     cat > $S3_CFG <<EOF
+#
+#     host_base = sos.exo.io
+#     host_bucket = %(bucket)s.sos.exo.io
+#
+#     access_key = $S3_ACCESS_KEY
+#     secret_key = $S3_SECRET_KEY
+#
+#     use_https = True
+#     signature_v2 = True
+#
+# EOF
+#
+# #(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
+#
+# }
 
 get_data() {
 
     echo $(date)
     for i in ${my_product[@]}; do
-        s3cmd get --recursive $S3_BUCKET/$i.SAFE
+        sudo s3cmd get --recursive $S3_BUCKET/$i.SAFE
     done
     echo $(date)
 
@@ -127,10 +127,14 @@ get_timestamp() {
 reducer_ip=`ss-get reducer:hostname`
 
 create_cookie "`ss-get reducer:nuvla_token`"
+
 # install_slipstream_api
 # cat cookies-nuvla.txt
-set_s3
+# set_s3
+install_slipstream_api
 post_event "mapper.$id: starts downloading $my_product"
+# TODO Move this line to post_install
+mv /home/ubuntu/.s3cfg /root/
 get_data
 post_event "mapper.$id: starts image processing"
 run_proc

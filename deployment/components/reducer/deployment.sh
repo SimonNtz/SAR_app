@@ -23,12 +23,12 @@ EOF
 
 }
 
-# install_slipstream_api(){
-#     pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-#     mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
-#     rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-#     ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
-# }
+install_slipstream_api(){
+    pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
+    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
+    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
+    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
+}
 #
 #
 # create_cookie(){
@@ -125,8 +125,10 @@ else
    convert -delay 20 -loop 0 *.png $output
 fi
 
-set_s3
-
+#set_s3
+# TODO Move this line to post_install
+mv /home/ubuntu/.s3cfg /root/
+install_slipstream_api
 # Push animated GIF to the object store through S3
 s3cmd put $output $S3_BUCKET
 ss-set ss:url.service https://sos.exo.io/eodata_output/$output

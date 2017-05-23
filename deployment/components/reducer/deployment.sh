@@ -125,7 +125,7 @@ else
    convert -delay 20 -loop 0 *.png $output
 fi
 
-#set_s3
+set_s3
 
 # Push animated GIF to the object store through S3
 s3cmd put $output $S3_BUCKET

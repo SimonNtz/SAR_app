@@ -1,6 +1,6 @@
 
-# SlipStream applicatin: Pre-processsing of Sentinel 1 data
-==========================================================
+SlipStream application: Pre-processsing of Sentinel 1 data
+============================================================
 
 This project provides a solution of Sentinel 1 data pre-processsing via a cloud application hosted by SlipStream.
 
@@ -8,8 +8,8 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 
 
 ## Prerequisites
--------------
-* In order to executes successfully the application you should have,
+----------------
+### In order to execute successfully the application you should have,
 
 1. A SlipStream account
 1. Your cloud credentials added to your SlipStream Account
@@ -18,7 +18,7 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 
 
 ## Instructions
----------------
+----------------
 
 * In 'product_list.cfg' insert your product names line per line.
 
@@ -52,17 +52,3 @@ Processing stages
 3. Speckle-Filter (Dopler effect correction)
 4. Terrain correction
 5. PNG conversion
-
-Instructions
---------------
-
-Follow the SlipStream client installation [SlipStream Client Installation]
-(https://github.com/slipstream/SlipStreamDocumentation/blob/master/docs/tutorials/ss/automating-slipstream.rst)
-
-Insert your product names in 'product_list.cfg' files one per line.
-
-Edit the variable CLOUD in client_script2.sh by choosing your cloud provider (i.e. Amazon, Cesnet, Exoscale).
-
-Finally run,
-
-`<bash client_script2.cfg>`

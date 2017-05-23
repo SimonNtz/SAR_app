@@ -7,7 +7,8 @@ slipstream login -u $SLIPSTREAM_USERNAME -p $SLIPSTREAM_PASSWORD
 
 NUVLA_TOKEN=`cat ~/.slipstream/cookies-nuvla.txt | grep -v \#`
 
-CLOUD='eo-cesnet-cz1'
+CLOUD="$1"
+#CLOUD='eo-cesnet-cz1'
 #CLOUD='ec2-eu-west'
 
 INPUT_SIZE=`cat product_list.cfg | wc -l`

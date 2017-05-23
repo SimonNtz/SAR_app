@@ -8,7 +8,7 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 
 
 ## Prerequisites
-----------------
+
 ### In order to execute successfully the application you should have,
 
 1. A SlipStream account
@@ -18,7 +18,7 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 
 
 ## Instructions
-----------------
+
 
 * In 'product_list.cfg' insert your product names line per line.
 
@@ -26,7 +26,7 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 
 `bash client_script.sh <YOUR_CLOUD_SERVICE>`
 
-
+--------------------------------------------------------------------------------
 
 Scope
 ------

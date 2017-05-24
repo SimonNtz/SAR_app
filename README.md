@@ -1,10 +1,12 @@
 
-SlipStream application: Pre-processsing of Sentinel 1 data
-============================================================
+Sentinel 1 data pre-processing
+===============================
 
-This project provides a solution of Sentinel 1 data pre-processsing via a cloud application hosted by SlipStream.
+This projects is a use case of Sentinel 1 data preparation for further quantitative analysis on Earth observation.
 
-It takes in input a list of Sentinel 1 name products and merged their corrected image in an animated GIF.
+The processing takes a list of satellite image in input and output them merged into an animated GIF.
+
+The app is automated and deployed on a cloud cluster using SlipStream.
 
 
 ## Prerequisites
@@ -12,17 +14,19 @@ It takes in input a list of Sentinel 1 name products and merged their corrected 
 ### In order to execute successfully the application you should have,
 
 1. A SlipStream account
+
 1. Your cloud credentials added to your SlipStream Account
+
 1. pip installed (https://pypi.python.org/pypi/pip)
+
 1. SlipStream Client installed (https://pypi.python.org/pypi/slipstream-client/3.14)
 
 
 ## Instructions
 
-
 * In 'product_list.cfg' insert your product names line per line.
 
-* Run the client script.
+* Run the client script with
 
 `bash client_script.sh <YOUR_CLOUD_SERVICE>`
 

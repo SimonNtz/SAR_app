@@ -2,9 +2,8 @@
 Sentinel 1 data pre-processing
 ===============================
 
-This project is a use case of Sentinel 1 data preparation for further quantitative analysis on Earth observation.
-The processing takes a list of satellite images in input and output them merged into an animated GIF.
-The app is automated and deployed on a cloud cluster using SlipStream client.
+This project is a use case of Sentinel 1 data preparation for further quantitative analysis on Earth observation.  
+The processing takes a list of satellite images in input and output them merged into an animated GIF. The app is automated and deployed on a cloud cluster using SlipStream client.
 
 
 ## Prerequisites
@@ -22,7 +21,7 @@ The app is automated and deployed on a cloud cluster using SlipStream client.
 
 ## Instructions
 
-* Add the product names into the input file [**product_list.cfg**](https://github.com/SimonNtz/SAR_app/tree/master/app/client/product_list.cfg)
+* Add the product names into the input file [*product_list.cfg*](https://github.com/SimonNtz/SAR_app/tree/master/app/client/product_list.cfg)
 
 * Run the [client script](https://github.com/SimonNtz/SAR_app/blob/master/app/client/client_script.sh) with the cloud service in parameter
 

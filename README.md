@@ -18,7 +18,6 @@ The app is automated and deployed on a cloud cluster using SlipStream client.
 
 
 
-
 1. pip installed (https://pypi.python.org/pypi/pip)
 
 1. SlipStream Client installed (https://pypi.python.org/pypi/slipstream-client/3.14)

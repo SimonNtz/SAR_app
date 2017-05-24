@@ -1,6 +1,10 @@
 #!/bin/bash
-
-#TODO verify SS-client install
+# *** CLIENT SCRIPT ***
+#
+# - Bash script launching the the SlipStream application
+# - its unique parameter is the cloud service selected by the client
+# - it retrieves the input list from file "product_list.cfg"
+#
 
 #Recover token in cookies-nuvla.txt
 slipstream login -u $SLIPSTREAM_USERNAME -p $SLIPSTREAM_PASSWORD
@@ -14,5 +18,12 @@ CLOUD="$1"
 INPUT_SIZE=`cat product_list.cfg | sed '/^\s*#/d;/^\s*$/d' | wc -l`
 INPUT_LIST=`cat product_list.cfg | sed '/^\s*#/d;/^\s*$/d'`
 
-ss-execute --parameters="mapper:multiplicity=$INPUT_SIZE","mapper:product_url='$INPUT_LIST'","mapper:cloudservice=$CLOUD","reducer:cloudservice=$CLOUD","reducer:nuvla_token='$NUVLA_TOKEN'" --keep-running="always" EO_Sentinel_1/procSAR
-#ss-execute --parameters="mapper:multiplicity=3","mapper:product_url='$INPUT_LIST'","mapper:cloudservice=eo-cesnet-cz1","reducer:cloudservice=eo-cesnet-cz1" EO_Sentinel_1/procSAR
+ss-execute \
+    --keep-running="always" \
+    --parameters="
+    mapper:multiplicity=$INPUT_SIZE,
+    mapper:product_url=$INPUT_LIST,
+    mapper:cloudservice=$CLOUD,
+    reducer:cloudservice=$CLOUD,
+    reducer:nuvla_token=$NUVLA_TOKEN" \
+    EO_Sentinel_1/procSAR

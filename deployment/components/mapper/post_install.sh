@@ -122,7 +122,7 @@ EOF
 install_S1_toolbox
 configure_python_interface
 set_s3
-create_cookie "`ss-get reducer:nuvla_token`"
+#create_cookie "`ss-get reducer:nuvla_token`"
 #install_slipstream_api
 
 sudo rm -rf /var/lib/cloud/instance/sem/*

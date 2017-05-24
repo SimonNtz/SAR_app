@@ -18,6 +18,8 @@ The processing takes a list of satellite images in input and output them merged 
 
 1. SlipStream Client installed (https://pypi.python.org/pypi/slipstream-client/3.14)
 
+1. SlipStream
+
 
 ## Instructions
 

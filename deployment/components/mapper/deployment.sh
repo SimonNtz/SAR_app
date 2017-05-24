@@ -78,8 +78,11 @@ install_slipstream_api(){
 
 # Retrieve the client's Nuvla token through the application component parameters
 
+cookiefile=/home/cookies-nuvla.txt
+
 create_cookie(){
-    cat >cookies-nuvla.txt<<EOF
+    [ -z "$@" ] || return
+    cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
@@ -88,16 +91,23 @@ create_cookie(){
 EOF
 }
 
+get_username() {
+  awk -F= '/username/ {print $2}'
+      /opt/slipstream/client/sbin/slipstream.context
+}
+
 # Require 'cookies-nuvla.txt' to exist and be valid
 post_event() {
+  [ -f $cookiefile ] || return
+  username=$(get_username)
   cat >pyScript.py<<EOF
 import sys
 from slipstream.api import Api
-api = Api(cookie_file='/home/cookies-nuvla.txt')
+api = Api(cookie_file='$cookiefile')
 log = str(sys.argv[1]).translate(None, "[]")
 print log
-event = {'acl': {u'owner': {u'principal': u'simon1992', u'type': u'USER'},
-        u'rules': [{u'principal': u'simon1992',
+event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'},
+        u'rules': [{u'principal': u'$username'.strip(),
         u'right': u'ALL',
         u'type': u'USER'},
         {u'principal': u'ADMIN',
@@ -116,8 +126,8 @@ python pyScript.py "$@"
 
 
 get_DUIID() {
-    foo=`(cat /opt/slipstream/client/sbin/slipstream.context | grep 'diid')`
-    echo "$foo" | awk '{print $3}'
+    awk -F= '/diid/ {print $2}'
+        /opt/slipstream/client/sbin/slipstream.context
 }
 
 get_timestamp() {
@@ -126,7 +136,7 @@ get_timestamp() {
 
 reducer_ip=`ss-get reducer:hostname`
 
-create_cookie "`ss-get reducer:nuvla_token`"
+create_cookie "`ss-get --noblock reducer:nuvla_token`"
 
 # install_slipstream_api
 # cat cookies-nuvla.txt

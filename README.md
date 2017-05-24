@@ -24,9 +24,9 @@ The app is automated and deployed on a cloud cluster using SlipStream client.
 
 ## Instructions
 
-* Add the product names into **product_list.cfg** located in the [client directory](https://github.com/SimonNtz/SAR_app/tree/master/app/client)
+* Add the product names into the input file [**product_list.cfg**](https://github.com/SimonNtz/SAR_app/tree/master/app/client/product_list.cfg)
 
-* Run the [client script](https://github.com/SimonNtz/SAR_app/blob/master/app/client/client_script.sh) with while passing the cloud service in parameters
+* Run the [client script](https://github.com/SimonNtz/SAR_app/blob/master/app/client/client_script.sh) with the cloud service in parameter
 
     `bash client_script.sh <YOUR_CLOUD_SERVICE>`
 

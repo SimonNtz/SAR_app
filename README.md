@@ -14,7 +14,7 @@ The app is automated and deployed on a cloud cluster using SlipStream client.
 1. A SlipStream account
 
 1. Cloud credentials added in the analogous Nuvla profile
-<img src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png" width="48">
+<img src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png" width="75%">
 
 
 1. pip installed (https://pypi.python.org/pypi/pip)

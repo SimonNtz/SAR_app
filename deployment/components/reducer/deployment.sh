@@ -38,7 +38,8 @@ create_cookie(){
 #  [ -z "$@" ] || return
     cat >cookies-nuvla.txt<<EOF
 # Netscape HTTP Cookie File
-$@
+
+"$@"
 EOF
 }
 
@@ -118,7 +119,7 @@ if [ -z "$ids" ]; then
 else
    set_listeners $ids
    check_ready
-   create_cookie `ss-get --noblock nuvla_token`
+   create_cookie "`ss-get --noblock nuvla_token`"
   #  install_slipstream_api
   #  cat cookies-nuvla.txt
 
@@ -134,7 +135,7 @@ fi
 #set_s3
 # TODO Move this line to post_install
 mv /home/ubuntu/.s3cfg /root/
-install_slipstream_api
+#install_slipstream_api
 # Push animated GIF to the object store through S3
 s3cmd put $output $S3_BUCKET
 ss-set ss:url.service https://sos.exo.io/eodata_output/$output

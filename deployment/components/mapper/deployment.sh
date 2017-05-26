@@ -144,7 +144,7 @@ create_cookie "`ss-get --noblock reducer:nuvla_token`"
 install_slipstream_api
 post_event "mapper.$id: starts downloading $my_product"
 # TODO Move this line to post_install
-mv /home/ubuntu/.s3cfg /root/
+#mv /home/ubuntu/.s3cfg /root/
 get_data
 post_event "mapper.$id: starts image processing"
 run_proc

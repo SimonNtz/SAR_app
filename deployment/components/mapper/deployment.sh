@@ -22,29 +22,23 @@ my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
 echo ${my_product[@]}
 
+S3_BUCKET=s3://eodata
+S3_ACCESS_KEY=
+S3_SECRET_KEY=
 
+set_s3() {
+    cat > ~/.s3cfg <<EOF
+[default]
+host_base = sos.exo.io
+host_bucket = %(bucket)s.sos.exo.io
 
+access_key = $S3_ACCESS_KEY
+secret_key = $S3_SECRET_KEY
 
-# set_s3() {
-#
-# S3_CFG=~/.s3cfg
-# #S3_BUCKET=s3://eodata
-#     cat > $S3_CFG <<EOF
-#
-#     host_base = sos.exo.io
-#     host_bucket = %(bucket)s.sos.exo.io
-#
-#     access_key = $S3_ACCESS_KEY
-#     secret_key = $S3_SECRET_KEY
-#
-#     use_https = True
-#     signature_v2 = True
-#
-# EOF
-#
-# #(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-#
-# }
+use_https = True
+signature_v2 = True
+EOF
+}
 
 get_data() {
 
@@ -67,7 +61,6 @@ run_proc() {
    #TODO clear .snap/var/temp/cache files
 }
 
-# Use Netcat to push the output to the reducer
 push_product() {
     nc $reducer_ip 808$id < $id.png
 }
@@ -91,16 +84,24 @@ create_cookie(){
 EOF
 }
 
+get_DUIID() {
+    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
+}
+
+get_timestamp() {
+    echo `date --utc +%FT%T.%3NZ`
+}
+
 get_username() {
   awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
 }
 
-# Require 'cookies-nuvla.txt' to exist and be valid
 post_event() {
   [ -f $cookiefile ] || return
   username=$(get_username)
   duiid=$(get_DUIID)
-  cat >pyScript.py<<EOF
+  event=post-event.py
+  cat >$event<<EOF
 import sys
 from slipstream.api import Api
 api = Api(cookie_file='$cookiefile')
@@ -121,27 +122,14 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
 
 api.cimi_add('events', event)
 EOF
-python pyScript.py "$@"
-}
-
-
-get_DUIID() {
-    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
-}
-
-get_timestamp() {
-    echo `date --utc +%FT%T.%3NZ`
+    python $event "$@"
 }
 
 reducer_ip=`ss-get reducer:hostname`
 create_cookie "`ss-get --noblock reducer:nuvla_token`"
-# install_slipstream_api
-# cat cookies-nuvla.txt
-# set_s3
+set_s3
 install_slipstream_api
 post_event "mapper.$id: starts downloading $my_product"
-# TODO Move this line to post_install
-mv /home/ubuntu/.s3cfg /root/
 get_data
 post_event "mapper.$id: starts image processing"
 run_proc

@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+set -x
+set -o pipefail
 
 #
 # For Ubuntu distribution Version 16.04 LTS
@@ -81,13 +84,13 @@ install_slipstream_api(){
 cookiefile=/home/cookies-nuvla.txt
 
 create_cookie(){
-    [ -z "$@" ] || return
+#    [ -z "$@" ] || return
     cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-"$@"
+#"$@"
 EOF
 }
 

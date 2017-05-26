@@ -1,6 +1,8 @@
 #!/bin/bash
 cd /home
-
+set -e
+set -x
+set -o pipefail
 
 set_s3() {
 
@@ -33,19 +35,20 @@ install_slipstream_api(){
 cookiefile=/home/cookies-nuvla.txt
 
 create_cookie(){
-  [ -z "$@" ] || return
+#  [ -z "$@" ] || return
     cat >cookies-nuvla.txt<<EOF
 # Netscape HTTP Cookie File
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-"$@"
+#"$@"
 EOF
 }
 
 post_event() {
   [ -f $cookiefile ] || return
   username=$(get_username)
+  duiid=$(get_DUIID)
   cat >pyScript.py<<EOF
 import sys
 from slipstream.api import Api
@@ -59,7 +62,7 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
         {u'principal': u'ADMIN',
         u'right': u'ALL',
         u'type': u'ROLE'}]},
-  'content': {u'resource': {u'href': u'run/'+ '$(get_DUIID)'},
+  'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
                                         u'state': log},
   'severity': u'low',
   'timestamp': '$(get_timestamp)',
@@ -71,8 +74,7 @@ python pyScript.py "$@"
 }
 
 get_DUIID() {
-    awk -F= '/diid/ {print $2}'
-        /opt/slipstream/client/sbin/slipstream.context
+    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
 }
 
 get_timestamp() {
@@ -80,8 +82,7 @@ get_timestamp() {
 }
 
 get_username() {
-  awk -F= '/username/ {print $2}'
-      /opt/slipstream/client/sbin/slipstream.context
+  awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
 }
 
 # Lauch netcat daemons for each  product

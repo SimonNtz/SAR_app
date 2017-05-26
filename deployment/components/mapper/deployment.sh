@@ -57,11 +57,11 @@ get_data() {
 }
 
 run_proc() {
-   curl -o SAR_test_proc.py -sSfL $gh/SimonNtz/SAR_app/$branch/app/SAR_test_proc.py
+   curl -o SAR_proc.py -sSfL $gh/SimonNtz/SAR_app/$branch/app/SAR_proc.py
    echo "java_max_mem: 14G" >> /home/snap-engine/snap-python/src/main/resources/snappy/snappy/snappy.ini
    #TODO check if SAR_data is not empty!
     for i in ${my_product[@]}; do
-           python SAR_test_proc.py $i
+           python SAR_proc.py $i
     done
     find /home/data/ -maxdepth 1 -name *.png -exec cp {} $id.png \;
    #TODO clear .snap/var/temp/cache files

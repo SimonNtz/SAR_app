@@ -92,14 +92,14 @@ EOF
 }
 
 get_username() {
-  awk -F= '/username/ {print $2}'
-      /opt/slipstream/client/sbin/slipstream.context
+  awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
 }
 
 # Require 'cookies-nuvla.txt' to exist and be valid
 post_event() {
   [ -f $cookiefile ] || return
   username=$(get_username)
+  duiid=$(get_DUIID)
   cat >pyScript.py<<EOF
 import sys
 from slipstream.api import Api
@@ -113,7 +113,7 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
         {u'principal': u'ADMIN',
         u'right': u'ALL',
         u'type': u'ROLE'}]},
-  'content': {u'resource': {u'href': u'run/'+ '$(get_DUIID)'},
+  'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
                                         u'state': log},
   'severity': u'low',
   'timestamp': '$(get_timestamp)',
@@ -126,8 +126,7 @@ python pyScript.py "$@"
 
 
 get_DUIID() {
-    awk -F= '/diid/ {print $2}'
-        /opt/slipstream/client/sbin/slipstream.context
+    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
 }
 
 get_timestamp() {

@@ -8,7 +8,7 @@ for further quantitative analysis on Earth observation.  The processing takes a
 list of satellite images as an input and outputs them merged into an animated
 GIF. The automated deployment of the application on Cloud is performed using
 https://nuv.la service which is based on
-(SlipStream)[http://sixsq.com/products/slipstream].
+[SlipStream](http://sixsq.com/products/slipstream).
 
 
 ## Prerequisites

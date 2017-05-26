@@ -90,7 +90,7 @@ create_cookie(){
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-"$@"
+$@
 EOF
 }
 
@@ -137,7 +137,7 @@ get_timestamp() {
 }
 
 reducer_ip=`ss-get reducer:hostname`
-create_cookie "`ss-get --noblock reducer:nuvla_token`"
+create_cookie `ss-get --noblock reducer:nuvla_token`
 # install_slipstream_api
 # cat cookies-nuvla.txt
 # set_s3

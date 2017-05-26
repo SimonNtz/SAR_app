@@ -41,7 +41,7 @@ create_cookie(){
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
 
-"$@"
+$@
 EOF
 }
 
@@ -121,7 +121,7 @@ if [ -z "$ids" ]; then
 else
    set_listeners $ids
    check_ready
-   create_cookie "`ss-get --noblock nuvla_token`"
+   create_cookie `ss-get --noblock nuvla_token`
   #  install_slipstream_api
   #  cat cookies-nuvla.txt
 

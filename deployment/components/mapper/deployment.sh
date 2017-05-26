@@ -87,7 +87,7 @@ create_cookie(){
 #    [ -z "$@" ] || return
     cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
-$@
+"$1"
 EOF
 }
 

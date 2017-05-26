@@ -1,4 +1,4 @@
-#!env/bin bash
+#!/env/bin bash
 
 set_s3() {
     S3_CFG=~/.s3cfg
@@ -6,8 +6,8 @@ set_s3() {
     host_base = sos.exo.io
     host_bucket = %(bucket)s.sos.exo.io
 
-    access_key = $$
-    secret_key = $$
+    access_key = $S3_ACCESS_KEY
+    secret_key = $S3_SECRET_KEY
     use_https = True
     signature_v2 = True
 

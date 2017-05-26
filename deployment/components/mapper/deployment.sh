@@ -135,9 +135,7 @@ get_timestamp() {
 }
 
 reducer_ip=`ss-get reducer:hostname`
-
 create_cookie "`ss-get --noblock reducer:nuvla_token`"
-
 # install_slipstream_api
 # cat cookies-nuvla.txt
 # set_s3

@@ -138,7 +138,7 @@ create_cookie `ss-get --noblock reducer:nuvla_token`
 # install_slipstream_api
 # cat cookies-nuvla.txt
 # set_s3
-install_slipstream_api
+#install_slipstream_api
 post_event "mapper.$id: starts downloading $my_product"
 # TODO Move this line to post_install
 mv /home/ubuntu/.s3cfg /root/

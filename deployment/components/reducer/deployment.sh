@@ -39,7 +39,7 @@ create_cookie(){
     cat >cookies-nuvla.txt<<EOF
 # Netscape HTTP Cookie File
 
-"$@"
+"$1"
 EOF
 }
 

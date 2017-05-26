@@ -1,1 +1,3 @@
- [ -z "" ] || echo 'ok'
+ #!/bin/bash
+
+echo "$1"

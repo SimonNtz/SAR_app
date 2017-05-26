@@ -32,9 +32,9 @@ In order to successfully execute the application, you should have:
 
  1. Clone this repository with
 
-   ```
-   $ git clone https://github.com/SimonNtz/SAR_app.git
-   ```
+    ```
+    $ git clone https://github.com/SimonNtz/SAR_app.git
+    ```
 
  2. Add the product names into the input file
 

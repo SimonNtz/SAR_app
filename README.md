@@ -30,15 +30,28 @@ In order to successfully execute the application, you should have:
 
 ## Instructions
 
- 1. Add the product names into the input file
-    [product_list.cfg](https://github.com/SimonNtz/SAR_app/tree/master/app/client/product_list.cfg)
+ 1. Clone this repository with
 
- 2. Run the [client
-    script](https://github.com/SimonNtz/SAR_app/blob/master/app/client/SAR_run.sh)
-    with the cloud service as a parameter
+   ```
+   $ git clone https://github.com/SimonNtz/SAR_app.git
+   ```
 
-      cd run/
-      ./SAR_run.sh <YOUR_CLOUD_SERVICE>
+ 2. Add the product names into the input file
+
+    ```
+    $ cd run/
+    $ # edit product_list.cfg
+    ```
+
+ 3. Run the SAR processor on https://nuv.la with
+
+    ```
+    $ ./SAR_run.sh <cloud>
+    ```
+
+    Where `<cloud>` is the connector instance name as defined on http://nuv.la
+    service and the user has provided credential for it (see section 2. of
+    Prerequisites).
 
 ## Scope
 

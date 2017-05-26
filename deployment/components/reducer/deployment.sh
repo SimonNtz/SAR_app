@@ -135,7 +135,7 @@ fi
 
 #set_s3
 # TODO Move this line to post_install
-#mv /home/ubuntu/.s3cfg /root/
+mv /home/ubuntu/.s3cfg /root/
 install_slipstream_api
 # Push animated GIF to the object store through S3
 s3cmd put $output $S3_BUCKET

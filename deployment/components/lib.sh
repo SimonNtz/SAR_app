@@ -1,36 +1,46 @@
-# Lib functions for deployment.
+# Library functions for deployment.
 
-S3_BUCKET=s3://eodata
-S3_ACCESS_KEY=
-S3_SECRET_KEY=
-
-set_s3() {
+config_s3() {
     cat > ~/.s3cfg <<EOF
 [default]
-host_base = sos.exo.io
-host_bucket = %(bucket)s.sos.exo.io
+host_base = $1
+host_bucket = %(bucket)s.$1
 
-access_key = $S3_ACCESS_KEY
-secret_key = $S3_SECRET_KEY
+access_key = $2
+secret_key = $3
 
 use_https = True
+# For Exoscale only
 signature_v2 = True
 EOF
 }
 
-install_slipstream_api(){
-    pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
-    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
+get_file_github() {
+    ghproject=https://raw.githubusercontent.com/SimonNtz/SAR_app/${GH_BRANCH-master}
+    file_gh=${1?"Path to file on GitHub should be provided."}
+    file_local=${2-$(basename $file_gh)}
+    curl -o $file_local -sSfL $ghproject/$file_gh
 }
 
+install_slipstream_api(){
+    pip install \
+        https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
+    mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
+        /opt/slipstream/client/lib/slipstream/
+    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
+    ln -s /opt/slipstream/client/lib/slipstream \
+        /usr/local/lib/python2.7/dist-packages/slipstream
+}
+
+
+#
+# Eventing.
 # Retrieve the client's Nuvla token through the application component parameters
 
 cookiefile=/home/cookies-nuvla.txt
 
 create_cookie(){
-#    [ -z "$@" ] || return
+    [ -z "$@" ] || return
     cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
 "$1"

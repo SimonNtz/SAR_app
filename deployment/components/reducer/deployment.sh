@@ -4,90 +4,16 @@ set -e
 set -x
 set -o pipefail
 
-set_s3() {
+curl -o 
 
-S3_CFG=~/.s3cfg
-# S3_BUCKET=s3://eodata_output
 
-    cat > $S3_CFG <<EOF
-
-    host_base = sos.exo.io
-    host_bucket = %(bucket)s.sos.exo.io
-
-    access_key = $$
-    secret_key = $$
-    use_https = True
-    signature_v2 = True
-
-EOF
-
-#(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-
-}
-
-install_slipstream_api(){
-    pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
-    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
-}
-
-cookiefile=/home/cookies-nuvla.txt
-
-create_cookie(){
-#  [ -z "$@" ] || return
-    cat >cookies-nuvla.txt<<EOF
-# Netscape HTTP Cookie File
-
-"$1"
-EOF
-}
-
-post_event() {
-  [ -f $cookiefile ] || return
-  username=$(get_username)
-  duiid=$(get_DUIID)
-  cat >pyScript.py<<EOF
-import sys
-from slipstream.api import Api
-api = Api(cookie_file='$cookiefile')
-log = str(sys.argv[1]).translate(None, "[]")
-print log
-event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'},
-        u'rules': [{u'principal': u'$username'.strip(),
-        u'right': u'ALL',
-        u'type': u'USER'},
-        {u'principal': u'ADMIN',
-        u'right': u'ALL',
-        u'type': u'ROLE'}]},
-  'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
-                                        u'state': log},
-  'severity': u'low',
-  'timestamp': '$(get_timestamp)',
-  'type': u'state'}
-
-api.cimi_add('events', event)
-EOF
-python pyScript.py "$@"
-}
-
-get_DUIID() {
-    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
-}
-
-get_timestamp() {
-    echo `date --utc +%FT%T.%3NZ`
-}
-
-get_username() {
-  awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
-}
+# TODO: to RTP.
+S3_BUCKET=s3://eodata_output
 
 # Lauch netcat daemons for each  product
 set_listeners() {
 echo -n  $@ | xargs -d ' ' -I% bash -c '(nc -l 808%  0<&- 1>%.png) &'
 }
-
 
 # Run multiple daemons depending on the mapper VM multiplicity and
 # whithin these a timeout checking mapper's ready state is triggered.
@@ -103,7 +29,7 @@ check_ready() {
 # how many mappers are is ready state.
 
 count_ready() {
- echo `cat readylock.md | wc -l`
+   echo `cat readylock.md | wc -l`
 }
 
 ids=`ss-get --noblock mapper:ids | sed -e 's/,/ /g'`

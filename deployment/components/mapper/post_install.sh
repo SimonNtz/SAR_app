@@ -1,9 +1,12 @@
 #!/bin/bash
 
+set -xe
+
 #
 # For Ubuntu distribution Version 16.04 LTS
 #
 
+source ../../lib.sh
 
 install_S1_toolbox() {
 
@@ -47,79 +50,22 @@ install_S1_toolbox() {
     install4jc snap.install4j -m unixInstaller
 
     chmod +x target/esa-snap_all_unix_6_0-SNAPSHOT.sh
-    (printf 'o\n1\n\n\nX,2,3\ny\n\ny\n\ny\n') | /home/snap-installer/target/esa-snap_all_unix_6_0-SNAPSHOT.sh
+    (printf 'o\n1\n\n\nX,2,3\ny\n\ny\n\ny\n') | \
+        /home/snap-installer/target/esa-snap_all_unix_6_0-SNAPSHOT.sh
 }
 
 configure_python_interface() {
     #TODO: check if SNAP is correctly installed
-    bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7  /home/snap-engine/snap-python/src/main/resources/snappy
+    bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7 \
+        /home/snap-engine/snap-python/src/main/resources/snappy
     # VERIF SNAPPY INTERFACE
     cd /opt/snap/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
     ln -s ../amd64/libjhdf5.so
 }
 
-deploy_and_run_riemann_client() {
-    pip install --upgrade pip
-    yum install -y python-pip python-devel gcc zeromq-devel
-    pip install pyzmq
-    pip install --upgrade six
-
-    # Due to https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=835688
-    pip install protobuf==3.1.0
-    pip install riemann-client==6.3.0
-    # source_location=${source_root}/nginx/deployment
-
-    curl -sSf -o ~/nginx_riemann_sender.py $source_location/nginx_riemann_sender.py
-
-    # Autoscaler ready synchronization flag!
-    # ss-display "Waiting for Riemann to be ready."
-    # ss-get --timeout 600 autoscaler_ready
-
-    # chmod +x ~/nginx_riemann_sender.py
-    # ~/nginx_riemann_sender.py $riemann_host:$riemann_port &
-}
-
-install_slipstream_api(){
-    pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
-    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
-}
-
-create_cookie(){
-    cat >cookies-nuvla.txt<<EOF
-# Netscape HTTP Cookie File
-# http://curl.haxx.se/rfc/cookie_spec.html
-# This is a generated file!  Do not edit.
-
-"$@"
-EOF
-}
-
-set_s3() {
-    S3_CFG=~/.s3cfg
-    cat > $S3_CFG <<EOF
-
-    host_base = sos.exo.io
-    host_bucket = %(bucket)s.sos.exo.io
-
-    access_key = $S3_ACCESS_KEY
-    secret_key = $S3_SECRET_KEY
-
-    use_https = True
-    signature_v2 = True
-
-EOF
-
-(printf '\n\n\n\n\n\n\n\ny') | s3cmd --configure
-
-}
-
 install_S1_toolbox
 configure_python_interface
-set_s3
-#create_cookie "`ss-get reducer:nuvla_token`"
-#install_slipstream_api
+install_slipstream_api
 
 sudo rm -rf /var/lib/cloud/instance/sem/*

@@ -3,7 +3,7 @@ set -e
 set -x
 set -o pipefail
 
-curl -sSfL https://raw.githubusercontent.com/SimonNtz/SAR_app/master/deployment/components/lib/event_builder.sh | source
+source ~/SAR_app/deployment/components/lib/event_builder.sh
 
 set_s3() {
 

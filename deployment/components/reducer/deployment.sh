@@ -3,7 +3,7 @@ set -e
 set -x
 set -o pipefail
 
-source ~/SAR_app/deployment/components/lib/event_builder.sh
+source ./event_builder.sh
 
 set_s3() {
 

@@ -3,7 +3,7 @@ set -e
 set -x
 set -o pipefail
 
-source ~/event_builder.sh
+source ./event_builder.sh
 
 set_s3() {
 

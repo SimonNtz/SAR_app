@@ -1,12 +1,14 @@
 #!/bin/bash
-
-set -xe
+set -x
+set -e
 
 #
 # For Ubuntu distribution Version 16.04 LTS
 #
 
-source ../../lib.sh
+INSTAL4J_LICENSE_KEY=${1?"Provide Install4j license key."}
+
+source ../lib.sh
 
 install_S1_toolbox() {
 
@@ -42,11 +44,9 @@ install_S1_toolbox() {
     wget http://download-keycdn.ej-technologies.com/install4j/install4j_linux_6_1_5.deb
     dpkg -i install4j_linux_6_1_5.deb
 
-    # TRIAL_KEY='E-M6-SIMON#842657-2017.06.26-90-332ybvu3qrrty9#2938'
-
     cp -rp jres/* /opt/install4j6/jres
 
-    install4jc -L $INSTAL4j_TRIAL_KEY
+    install4jc -L $INSTAL4J_LICENSE_KEY
     install4jc snap.install4j -m unixInstaller
 
     chmod +x target/esa-snap_all_unix_6_0-SNAPSHOT.sh
@@ -67,5 +67,3 @@ configure_python_interface() {
 install_S1_toolbox
 configure_python_interface
 install_slipstream_api
-
-sudo rm -rf /var/lib/cloud/instance/sem/*

@@ -1,5 +1,8 @@
 #!/env/bin bash
 
+set -e
+set -x
+
 set_s3() {
     S3_CFG=~/.s3cfg
     cat > $S3_CFG <<EOF
@@ -32,7 +35,6 @@ create_cookie(){
 # This is a generated file!  Do not edit.
 
 "$@"
-#nuv.la	FALSE	/	TRUE	1495616337	com.sixsq.slipstream.cookie	token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbW9uMTk5MiIsInJvbGVzIjoiVVNFUiBBTk9OIiwiZXhwIjoxNDk1NjE2MzM3fQ.SRdnhjIJuRu66MXKSUkUrwIh8_NGggG2plhg9RwxuPt2PZv1BMKmeBYPDuFE9gCl5sVMImDA4HLV8X5e2LSAbfkFIhBcm9B_7kCu0x9ZkwAo7mmeurC6JBwUg3n4PMTYnX-Cz_UeSgxYjbT-C7RhGQT0cKog9ZOL538vdktuG6WuLUEp8IpyrVKKc5yOTvXmK71s0tO1hhf-IEq7hd31CHmO__1iRA1wcxt1Bl2Kn4rkSNb_JOBfyQw__lv-Y3gGk2YOev5ly5rX5JySIUCGtKCfmPmrj4zIV5_UYGFl_o2PdmMOIRNK0GIR7wlpTN0uIyawKabr2YcwRvCA8OFOdA
 EOF
 }
 

@@ -7,6 +7,8 @@ set -o pipefail
 # For Ubuntu distribution Version 16.04 LTS
 #
 
+source event_builder.sh
+
 gh=https://raw.githubusercontent.com
 branch=master
 
@@ -72,66 +74,66 @@ push_product() {
     nc $reducer_ip 808$id < $id.png
 }
 
-install_slipstream_api(){
-    pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
-    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-    ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
-}
+# install_slipstream_api(){
+#     pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
+#     mv /usr/local/lib/python2.7/dist-packages/slipstream/api /opt/slipstream/client/lib/slipstream/
+#     rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
+#     ln -s /opt/slipstream/client/lib/slipstream /usr/local/lib/python2.7/dist-packages/slipstream
+# }
 
 # Retrieve the client's Nuvla token through the application component parameters
 
-cookiefile=/home/cookies-nuvla.txt
+# cookiefile=/home/cookies-nuvla.txt
 
-create_cookie(){
-#    [ -z "$@" ] || return
-    cat >$cookiefile<<EOF
-# Netscape HTTP Cookie File
-"$1"
-EOF
-}
-
-get_username() {
-  awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
-}
+# create_cookie(){
+# #    [ -z "$@" ] || return
+#     cat >$cookiefile<<EOF
+# # Netscape HTTP Cookie File
+# "$1"
+# EOF
+# }
+#
+# get_username() {
+#   awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
+# }
 
 # Require 'cookies-nuvla.txt' to exist and be valid
-post_event() {
-  [ -f $cookiefile ] || return
-  username=$(get_username)
-  duiid=$(get_DUIID)
-  cat >pyScript.py<<EOF
-import sys
-from slipstream.api import Api
-api = Api(cookie_file='$cookiefile')
-log = str(sys.argv[1]).translate(None, "[]")
-print log
-event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'},
-        u'rules': [{u'principal': u'$username'.strip(),
-        u'right': u'ALL',
-        u'type': u'USER'},
-        {u'principal': u'ADMIN',
-        u'right': u'ALL',
-        u'type': u'ROLE'}]},
-  'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
-                                        u'state': log},
-  'severity': u'low',
-  'timestamp': '$(get_timestamp)',
-  'type': u'state'}
+# post_event() {
+#   [ -f $cookiefile ] || return
+#   username=$(get_username)
+#   duiid=$(get_DUIID)
+#   cat >pyScript.py<<EOF
+# import sys
+# from slipstream.api import Api
+# api = Api(cookie_file='$cookiefile')
+# log = str(sys.argv[1]).translate(None, "[]")
+# print log
+# event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'},
+#         u'rules': [{u'principal': u'$username'.strip(),
+#         u'right': u'ALL',
+#         u'type': u'USER'},
+#         {u'principal': u'ADMIN',
+#         u'right': u'ALL',
+#         u'type': u'ROLE'}]},
+#   'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
+#                                         u'state': log},
+#   'severity': u'low',
+#   'timestamp': '$(get_timestamp)',
+#   'type': u'state'}
+#
+# api.cimi_add('events', event)
+# EOF
+# python pyScript.py "$@"
+# }
 
-api.cimi_add('events', event)
-EOF
-python pyScript.py "$@"
-}
-
-
-get_DUIID() {
-    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
-}
-
-get_timestamp() {
-    echo `date --utc +%FT%T.%3NZ`
-}
+#
+# get_DUIID() {
+#     awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
+# }
+#
+# get_timestamp() {
+#     echo `date --utc +%FT%T.%3NZ`
+# }
 
 reducer_ip=`ss-get reducer:hostname`
 create_cookie "`ss-get --noblock reducer:nuvla_token`"

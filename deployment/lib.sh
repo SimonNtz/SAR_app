@@ -10,17 +10,20 @@ access_key = $2
 secret_key = $3
 
 use_https = True
+EOF
+    if [ "$1" == "sos.exo.io" ] ;then
+        cat >>~/.s3cfg<<EOF
 # For Exoscale only
 signature_v2 = True
 EOF
+     fi
 }
 
-get_file_github() {
-    ghproject=https://raw.githubusercontent.com/SimonNtz/SAR_app/${GH_BRANCH-master}
-    file_gh=${1?"Path to file on GitHub should be provided."}
-    file_local=${2-$(basename $file_gh)}
-    curl -o $file_local -sSfL $ghproject/$file_gh
-}
+#
+# Eventing.
+# Retrieve the client's Nuvla token through the application component parameters
+
+cookiefile=/home/cookies-nuvla.txt
 
 install_slipstream_api(){
     pip install \
@@ -32,44 +35,39 @@ install_slipstream_api(){
         /usr/local/lib/python2.7/dist-packages/slipstream
 }
 
-
-#
-# Eventing.
-# Retrieve the client's Nuvla token through the application component parameters
-
-cookiefile=/home/cookies-nuvla.txt
-
 create_cookie(){
     [ -z "$@" ] || return
     cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
-"$1"
+
+$@
 EOF
 }
 
 get_DUIID() {
-    awk -F= '/diid/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
+    awk -F= '/diid/ {print $2}' \
+        /opt/slipstream/client/sbin/slipstream.context
 }
 
-get_timestamp() {
-    echo `date --utc +%FT%T.%3NZ`
-}
-
-get_username() {
-  awk -F= '/username/ {print $2}' /opt/slipstream/client/sbin/slipstream.context
+get_ss_user() {
+    awk -F= '/username/ {print $2}' \
+        /opt/slipstream/client/sbin/slipstream.context
 }
 
 post_event() {
-  [ -f $cookiefile ] || return
-  username=$(get_username)
-  duiid=$(get_DUIID)
-  event=post-event.py
-  cat >$event<<EOF
+    msg=$@
+    [ -f $cookiefile ] || return
+    username=$(get_ss_user)
+    duiid=$(get_DUIID)
+    event_script=/tmp/post-event.py
+    [ -f $event_script ] || \
+         cat >$event_script<<EOF
 import sys
 from slipstream.api import Api
+import datetime
 api = Api(cookie_file='$cookiefile')
-log = str(sys.argv[1]).translate(None, "[]")
-print log
+msg = str(sys.argv[1]).translate(None, "[]")
+print msg
 event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'},
         u'rules': [{u'principal': u'$username'.strip(),
         u'right': u'ALL',
@@ -77,14 +75,14 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
         {u'principal': u'ADMIN',
         u'right': u'ALL',
         u'type': u'ROLE'}]},
-  'content': {u'resource': {u'href': u'run/'+ u'$get_DUIID'.strip()},
-                                        u'state': log},
+  'content': {u'resource': {u'href': u'run/'+ u'$duuid'.strip()},
+                                        u'state': msg},
   'severity': u'low',
-  'timestamp': '$(get_timestamp)',
+  'timestamp': datetime.datetime.now().strftime('%FT%TZ'),
   'type': u'state'}
 
 api.cimi_add('events', event)
 EOF
-    python $event "$@"
+    python $event_script "$msg"
 }
 

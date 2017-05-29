@@ -107,6 +107,11 @@ count_ready() {
  echo `cat readylock.md | wc -l`
 }
 
+
+create_cookie
+install_slipstream_api
+post_event "test1"
+
 ids=`ss-get --noblock mapper:ids | sed -e 's/,/ /g'`
 
 timestamp=$(date +%s)

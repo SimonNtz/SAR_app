@@ -1,11 +1,10 @@
 #!/bin/bash
-cd /home
-
 set -e
 set -x
 set -o pipefail
 
 source event_builder.sh
+
 
 set_s3() {
 
@@ -137,6 +136,7 @@ fi
 
 #set_s3
 # TODO Move this line to post_install
+cd /home
 mv /home/ubuntu/.s3cfg /root/
 install_slipstream_api
 # Push animated GIF to the object store through S3

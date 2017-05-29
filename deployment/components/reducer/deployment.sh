@@ -1,8 +1,11 @@
 #!/bin/bash
 cd /home
+
 set -e
 set -x
 set -o pipefail
+
+source event_builder.sh
 
 set_s3() {
 
@@ -119,7 +122,7 @@ if [ -z "$ids" ]; then
 else
    set_listeners $ids
    check_ready
-   create_cookie "`ss-get --noblock nuvla_token`"
+   create_cookie
   #  install_slipstream_api
   #  cat cookies-nuvla.txt
 

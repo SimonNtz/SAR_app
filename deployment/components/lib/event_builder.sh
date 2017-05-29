@@ -1,4 +1,3 @@
-#!/bin/bash
 
 install_slipstream_api(){
     pip install https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
@@ -12,8 +11,6 @@ create_cookie(){
 # Netscape HTTP Cookie File
 # http://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file!  Do not edit.
-
-"$@"
 EOF
 }
 

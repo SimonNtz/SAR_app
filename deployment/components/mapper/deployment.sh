@@ -7,7 +7,7 @@ set -o pipefail
 # For Ubuntu distribution Version 16.04 LTS
 #
 
-source event_builder.sh
+source ~/event_builder.sh
 
 gh=https://raw.githubusercontent.com
 branch=master

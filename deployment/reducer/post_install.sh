@@ -5,4 +5,4 @@ set -x
 
 source ../lib.sh
 
-sudo -H install_slipstream_api
+install_slipstream_api

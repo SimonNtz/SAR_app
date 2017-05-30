@@ -26,12 +26,13 @@ EOF
 cookiefile=/home/cookies-nuvla.txt
 
 install_slipstream_api(){
-    pip install \
+    sudo -H pip install \
         https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
+    
+    #mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
         /opt/slipstream/client/lib/slipstream/
-    rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
-    ln -s /opt/slipstream/client/lib/slipstream \
+    #rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
+    #ln -s /opt/slipstream/client/lib/slipstream \
         /usr/local/lib/python2.7/dist-packages/slipstream
 }
 

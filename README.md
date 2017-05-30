@@ -2,48 +2,89 @@
 Sentinel 1 data pre-processing
 ===============================
 
-This project is an use case of Sentinel 1 data preparation for further quantitative analysis on Earth observation.  
-The processing takes a list of satellite images as an input and outputs them merged into an animated GIF. The app is automated and deployed on a cloud cluster using SlipStream client.
+This project is an use case of [Sentinel
+1](https://sentinel.esa.int/web/sentinel/missions/sentinel-1) data preparation
+for further quantitative analysis on Earth observation.  The processing takes a
+list of satellite images as an input and outputs them merged into an animated
+GIF. The automated deployment of the application on Cloud is performed using
+https://nuv.la service which is based on
+[SlipStream](http://sixsq.com/products/slipstream).
 
 
 ## Prerequisites
 
-#### In order to execute successfully the application you should have:
+In order to successfully execute the application, you should have:
 
-1. a SlipStream account
+ 1. An account on https://nuv.la.  Follow this
+    [link](http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#nuvla-account)
+    where you'll find how to create the account.
 
-1. Cloud credentials added in the analogous Nuvla profile <div style="padding:14px"><img src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png" width="75%"></div>
+ 2. Cloud credentials added in your Nuvla user profile
+    <div style="padding:14px"><img
+    src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png"
+    width="75%"></div>
 
-1. pip installed (https://pypi.python.org/pypi/pip)
+ 3. Python `>=2.6 and <3` and python package manager `pip` installed. Usually
+    can be done with `sudo easy_install pip`.
 
-1. SlipStream Client installed (https://pypi.python.org/pypi/slipstream-client/3.14)
+ 4. SlipStream Client installed: `pip install slipstream-client`.
 
 
 ## Instructions
 
-* Add the product names into the input file [*product_list.cfg*](https://github.com/SimonNtz/SAR_app/tree/master/app/client/product_list.cfg)
+ 1. Clone this repository with
 
-* Run the [client script](https://github.com/SimonNtz/SAR_app/blob/master/app/client/client_script.sh) with the cloud service as a parameter
+    ```
+    $ git clone https://github.com/SimonNtz/SAR_app.git
+    ```
 
-    `bash client_script.sh <YOUR_CLOUD_SERVICE>`
---------------------------------------------------------------------------------
+ 2. Add the product names into the input file
 
-Scope
-------
+    ```
+    $ cd run/
+    $ # edit product_list.cfg
+    ```
 
-Earth observation and in situ data have been made available online by space agencies including notably ESA https://scihub.copernicus.eu/dhus/#/home and ASF https://vertex.daac.asf.alaska.edu/. Those datasets are continuously updated what makes possible time series analysis and many others applications. Such implementations, however, are highly demanding in resources.
+ 3. Set the environement variables
 
-Implementation
----------------
+    ```
+    $ export SLIPSTREAM_USERNAME=<nuv.la username>
+    $ export SLIPSTREAM_PASSWORD=<nuv.la password>
+    ```
 
-The processing of the satellite images is distributed in a cluster and follows the MapReduce model.
-The input and ouput files are stored in a object store located in the cluster's cloud.
-The implementation aims to minimize the execution time
+    and Run the SAR processor on https://nuv.la with
+
+    ```
+    $ ./SAR_run.sh <cloud>
+    ```
+
+    Where `<cloud>` is the connector instance name as defined on http://nuv.la
+    service and the user has provided credential for it (see section 2. of
+    Prerequisites).
+
+ 4. The command prints out the deployment URL which you should open in your
+    browser and follow the progress of the deployment.  When the deployment is
+    done, the link to the result of the computation becomes available as the
+    run-time parameter `reducer.1:url.service` on the `reducer` component.
+
+## Scope
+
+Earth observation and in situ data have been made available online by space
+agencies including notably ESA https://scihub.copernicus.eu/dhus/#/home and ASF
+https://vertex.daac.asf.alaska.edu/. Those datasets are continuously updated
+what makes possible time series analysis and many others applications. Such
+implementations, however, are highly demanding in resources.
+
+## Implementation
+
+The processing of the satellite images is distributed in a cluster and follows
+the MapReduce model.  The input and ouput files are stored in a object store
+located in the cluster's cloud.  The implementation aims to minimize the
+execution time
 
 *NOTE: in-progress, not fully optimize yet.*
 
-Processing stages
------------------
+## Processing stages
 
 1. Subset
 2. Calibrate

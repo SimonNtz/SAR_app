@@ -66,6 +66,9 @@ In order to successfully execute the application, you should have:
     browser and follow the progress of the deployment.  When the deployment is
     done, the link to the result of the computation becomes available as the
     run-time parameter `ss:url.service` in the deployment Global section.
+    Also, the command follows the progress of the deployment, detects when
+    the deplpoyment has finished, recovers and prints the link to the result 
+    of the computation.
 
 ## Scope
 

@@ -66,4 +66,4 @@ configure_python_interface() {
 
 install_S1_toolbox
 configure_python_interface
-install_slipstream_api
+sudo -H install_slipstream_api

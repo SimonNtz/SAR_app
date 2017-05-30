@@ -23,7 +23,7 @@ start_time = time.time()
 print time.strftime("%Y-%m-%d %H:%M")
 
 for s1path in s1paths:
-    s1prd = "/home/data/%s.SAFE/%s" % (s1path, s1meta)
+    s1prd = "%s.SAFE/%s" % (s1path, s1meta)
     reader = ProductIO.getProductReader("SENTINEL-1")
     product = reader.readProductNodes(s1prd, None)
     products.append(product)

@@ -21,7 +21,7 @@ In order to successfully execute the application, you should have:
 
  2. Cloud credentials added in your Nuvla user profile
     <div style="padding:14px"><img
-    src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png"
+    src="https://github.com/SimonNtz/SAR_app/blob/master/run/NuvlaProfile.png"
     width="75%"></div>
 
  3. Python `>=2.6 and <3` and python package manager `pip` installed. Usually

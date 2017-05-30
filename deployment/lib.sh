@@ -36,7 +36,7 @@ install_slipstream_api(){
 }
 
 create_cookie(){
-    [ -n "$@" ] || return
+    [ -n "$@" ] || return 0
     cat >$cookiefile<<EOF
 # Netscape HTTP Cookie File
 # http://curl.haxx.se/rfc/cookie_spec.html
@@ -57,7 +57,7 @@ get_ss_user() {
 
 post_event() {
     msg=$@
-    [ -f $cookiefile ] || return
+    [ -f $cookiefile ] || return 0
     username=$(get_ss_user)
     duiid=$(get_DUIID)
     event_script=/tmp/post-event.py

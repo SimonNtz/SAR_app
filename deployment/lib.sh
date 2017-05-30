@@ -78,7 +78,7 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
   'content': {u'resource': {u'href': u'run/'+ u'$duuid'.strip()},
                                         u'state': msg},
   'severity': u'low',
-  'timestamp': datetime.datetime.now().strftime('%FT%TZ'),
+  'timestamp': '%sZ' % datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3],
   'type': u'state'}
 
 api.cimi_add('events', event)

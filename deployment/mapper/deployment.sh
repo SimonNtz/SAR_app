@@ -49,7 +49,6 @@ push_product() {
 }
 
 # Retrieve the client's Nuvla token through the application component parameters
-install_slipstream_api
 create_cookie "`ss-get --noblock reducer:nuvla_token`"
 
 post_event "mapper.$id: starts downloading $my_product"

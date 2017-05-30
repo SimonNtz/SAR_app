@@ -43,7 +43,6 @@ wait_mappers_ready() {
     done
 }
 
-install_slipstream_api
 create_cookie "`ss-get --noblock nuvla_token`"
 
 wait_mappers_ready

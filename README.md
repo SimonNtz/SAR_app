@@ -15,15 +15,17 @@ https://nuv.la service which is based on
 
 In order to successfully execute the application, you should have:
 
- 1. An account on https://nuv.la.
+ 1. An account on https://nuv.la.  Follow this
+    [link](http://ssdocs.sixsq.com/en/latest/tutorials/ss/prerequisites.html#nuvla-account)
+    where you'll find how to create the account.
 
  2. Cloud credentials added in your Nuvla user profile
     <div style="padding:14px"><img
     src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png"
     width="75%"></div>
 
- 3. Python package manager `pip` installed. Usually can be done with
-    `sudo easy_install pip`.
+ 3. Python `>=2.6 and <3` and python package manager `pip` installed. Usually
+    can be done with `sudo easy_install pip`.
 
  4. SlipStream Client installed: `pip install slipstream-client`.
 
@@ -43,7 +45,14 @@ In order to successfully execute the application, you should have:
     $ # edit product_list.cfg
     ```
 
- 3. Run the SAR processor on https://nuv.la with
+ 3. Set the environement variables
+
+    ```
+    $ export SLIPSTREAM_USERNAME=<nuv.la username>
+    $ export SLIPSTREAM_PASSWORD=<nuv.la password>
+    ```
+
+    and Run the SAR processor on https://nuv.la with
 
     ```
     $ ./SAR_run.sh <cloud>
@@ -52,6 +61,11 @@ In order to successfully execute the application, you should have:
     Where `<cloud>` is the connector instance name as defined on http://nuv.la
     service and the user has provided credential for it (see section 2. of
     Prerequisites).
+
+ 4. The command prints out the deployment URL which you should open in your
+    browser and follow the progress of the deployment.  When the deployment is
+    done, the link to the result of the computation becomes available as the
+    run-time parameter `reducer.1:url.service` on the `reducer` component.
 
 ## Scope
 

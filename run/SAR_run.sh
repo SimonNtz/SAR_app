@@ -1,29 +1,38 @@
 #!/bin/bash
-# *** CLIENT SCRIPT ***
-#
-# - Bash script launching the the SlipStream application
-# - its unique parameter is the cloud service selected by the client
-# - it retrieves the input list from file "product_list.cfg"
-#
 
-#Recover token in cookies-nuvla.txt
-slipstream login -u $SLIPSTREAM_USERNAME -p $SLIPSTREAM_PASSWORD
+set -o pipefail
 
-NUVLA_TOKEN=`cat ~/.slipstream/cookies-nuvla.txt | grep -v \#`
+# Bash script launching the the SlipStream application.
+# Its unique parameter is the cloud service selected by the client.
+# It retrieves the input list from file "product_list.cfg".
 
+# Connector instance name as defined on https://nuv.la for which user has
+# provided credentials in its profile.
 CLOUD="$1"
-#CLOUD='eo-cesnet-cz1'
-#CLOUD='ec2-eu-west'
 
-INPUT_SIZE=`cat product_list.cfg | sed '/^\s*#/d;/^\s*$/d' | wc -l`
-INPUT_LIST=`cat product_list.cfg | sed '/^\s*#/d;/^\s*$/d'`
+INPUT_SIZE=`awk '/^[a-zA-z]/' product_list.cfg | wc -l`
+INPUT_LIST=`awk '/^[a-zA-z]/' product_list.cfg`
 
-ss-execute \
-    --keep-running="always" \
+trap 'rm -f $LOG' EXIT
+
+LOG=`mktemp`
+SS_ENDPOINT=https://nuv.la
+
+python -u `which ss-execute` \
+    --endpoint $SS_ENDPOINT \
+    --wait 30 \
+    --keep-running="never" \
     --parameters="
     mapper:multiplicity=$INPUT_SIZE,
-    mapper:product_url=$INPUT_LIST,
+    mapper:product-list=$INPUT_LIST,
     mapper:cloudservice=$CLOUD,
-    reducer:cloudservice=$CLOUD,
-    reducer:nuvla_token=$NUVLA_TOKEN" \
-    EO_Sentinel_1/procSAR
+    reducer:cloudservice=$CLOUD" \
+    EO_Sentinel_1/procSAR 2>&1 | tee $LOG
+
+if [ "$?" == "0" ]; then
+    run=`awk '/::: Waiting/ {print $7}' $LOG`
+    echo "::: URL with the computed result:"
+    curl -u $SLIPSTREAM_USERNAME:$SLIPSTREAM_PASSWORD \
+        $run/reducer.1:url.service
+    echo
+fi

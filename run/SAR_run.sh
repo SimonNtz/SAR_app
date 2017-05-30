@@ -33,6 +33,6 @@ if [ "$?" == "0" ]; then
     run=`awk '/::: Waiting/ {print $7}' $LOG`
     echo "::: URL with the computed result:"
     curl -u $SLIPSTREAM_USERNAME:$SLIPSTREAM_PASSWORD \
-        $run/reducer.1:url.service
+        $run/ss:url.service
     echo
 fi

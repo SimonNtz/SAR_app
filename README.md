@@ -65,7 +65,7 @@ In order to successfully execute the application, you should have:
  4. The command prints out the deployment URL which you should open in your
     browser and follow the progress of the deployment.  When the deployment is
     done, the link to the result of the computation becomes available as the
-    run-time parameter `reducer.1:url.service` on the `reducer` component.
+    run-time parameter `ss:url.service` in the deployment Global section.
 
 ## Scope
 

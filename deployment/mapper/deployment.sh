@@ -10,9 +10,6 @@ source ../lib.sh
 
 SAR_proc=../../app/SAR_proc.py
 
-workspace=/home/data
-mkdir -p $workspace
-cd $workspace
 id=`ss-get id`
 my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
@@ -40,7 +37,7 @@ run_proc() {
         python $SAR_proc $i
     done
     # FIXME SAR_proc should store into current directory.
-    find ../../app/ -maxdepth 1 -name *.png -exec cp {} $id.png \;
+    find . -maxdepth 1 -name *.png -exec cp {} $id.png \;
     #TODO clear .snap/var/temp/cache files
 }
 

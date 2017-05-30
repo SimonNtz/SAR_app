@@ -20,7 +20,7 @@ SS_ENDPOINT=https://nuv.la
 
 python -u `which ss-execute` \
     --endpoint $SS_ENDPOINT \
-    --wait 30 \
+    --wait 60 \
     --keep-running="never" \
     --parameters="
     mapper:multiplicity=$INPUT_SIZE,

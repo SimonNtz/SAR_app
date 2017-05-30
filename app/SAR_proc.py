@@ -44,9 +44,6 @@ for product in products:
     print("Bands:   %s" % (list(band_names)))
 
 
-
-
-
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
 geom = WKTReader().read('POLYGON((-4.51 14.69,-4.477 14.227,-4.076 14.243,-4.054 14.642,-4.51 14.69))');
 

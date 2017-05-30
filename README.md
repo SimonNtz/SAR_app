@@ -21,7 +21,7 @@ In order to successfully execute the application, you should have:
 
  2. Cloud credentials added in your Nuvla user profile
     <div style="padding:14px"><img
-    src="https://github.com/SimonNtz/SAR_app/blob/master/app/client/NuvlaProfile.png"
+    src="https://github.com/SimonNtz/SAR_app/blob/master/run/NuvlaProfile.png"
     width="75%"></div>
 
  3. Python `>=2.6 and <3` and python package manager `pip` installed. Usually
@@ -52,7 +52,7 @@ In order to successfully execute the application, you should have:
     $ export SLIPSTREAM_PASSWORD=<nuv.la password>
     ```
 
-    and Run the SAR processor on https://nuv.la with
+    and run the SAR processor on https://nuv.la with
 
     ```
     $ ./SAR_run.sh <cloud>
@@ -66,6 +66,9 @@ In order to successfully execute the application, you should have:
     browser and follow the progress of the deployment.  When the deployment is
     done, the link to the result of the computation becomes available as the
     run-time parameter `ss:url.service` in the deployment Global section.
+    Also, the command follows the progress of the deployment, detects when
+    the deplpoyment has finished, recovers and prints the link to the result 
+    of the computation.
 
 ## Scope
 

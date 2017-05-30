@@ -49,7 +49,7 @@ In order to successfully execute the application, you should have:
 
     ```
     $ export SLIPSTREAM_USERNAME=<nuv.la username>
-    $ export SLIPSTREAM_PASSWORD=<nuv.la passowrd>
+    $ export SLIPSTREAM_PASSWORD=<nuv.la password>
     ```
 
     and Run the SAR processor on https://nuv.la with

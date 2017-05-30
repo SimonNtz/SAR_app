@@ -1,21 +1,19 @@
-import os,sys
+import sys
 sys.path.append('/home/snap-engine/snap-python/src/main/resources/snappy')
 import snappy
 from snappy import GPF
 from snappy import HashMap
-from snappy import ProgressMonitor
 from snappy import ProductIO
 jpy = snappy.jpy
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
 from scipy import ndimage
 import time
 import gc
 
-#TODO check with zipped files
+# TODO check with zipped files
 s1paths = list(sys.argv[1].split(','))
 s1meta = "manifest.safe"
 
@@ -25,8 +23,7 @@ start_time = time.time()
 print time.strftime("%Y-%m-%d %H:%M")
 
 for s1path in s1paths:
-
-    s1prd= "/home/data/%s.SAFE/%s" % (s1path, s1meta)
+    s1prd = "/home/data/%s.SAFE/%s" % (s1path, s1meta)
     reader = ProductIO.getProductReader("SENTINEL-1")
     product = reader.readProductNodes(s1prd, None)
     products.append(product)
@@ -45,7 +42,7 @@ for product in products:
 
 
 WKTReader = snappy.jpy.get_type('com.vividsolutions.jts.io.WKTReader')
-geom = WKTReader().read('POLYGON((-4.51 14.69,-4.477 14.227,-4.076 14.243,-4.054 14.642,-4.51 14.69))');
+geom = WKTReader().read('POLYGON((-4.51 14.69,-4.477 14.227,-4.076 14.243,-4.054 14.642,-4.51 14.69))')
 
 sub_height = np.floor(height/8)
 sub_weight = np.floor(width/8)
@@ -61,13 +58,9 @@ parameters.put('width', sub_weight)
 
 print("Subset dimension: %d x %d pixels" % (sub_weight, sub_height))
 
-#parameters.put('regionX',500)
-#parameters.put('regionY',500)
-
 subsets = []
 
 for product in products:
-
     subset = GPF.createProduct('Subset', parameters, product)
     subsets.append(subset)
 
@@ -116,28 +109,28 @@ parameters.put('sourceBands', 'Sigma0_VV')
 terrains = []
 
 
-for speckle in speckles :
-
+for speckle in speckles:
     terrain = GPF.createProduct('Terrain-Correction', parameters, speckle)
     terrains.append(terrain)
 
 parameters = HashMap()
 
-lineartodbs= []
+lineartodbs = []
 
 for terrain in terrains:
 
     lineartodb = GPF.createProduct('linearToFromdB', parameters, terrain)
     lineartodbs.append(lineartodb)
 
+
 def rot_crop(c, ang):
     rot_c = ndimage.rotate(c, ang)
     lx, ly = rot_c.shape
-    crop_rot =  rot_c[lx/6:-lx/6, ly/6:-ly/6]
+    crop_rot = rot_c[lx/6:-lx/6, ly/6:-ly/6]
     return(crop_rot)
 
 
-#TODO Try to use ImageIO instead of pyplot
+# TODO Try to use ImageIO instead of pyplot
 def printBand(product, band, vmin, vmax):
 
     band = product.getBand(band)
@@ -150,17 +143,17 @@ def printBand(product, band, vmin, vmax):
     band_data.shape = h, w
     name = product.getName()
 
-    plt.imshow(rot_crop(band_data, -10.75), cmap=plt.cm.binary_r, vmin=vmin, vmax=vmax)
+    plt.imshow(rot_crop(band_data, -10.75), cmap=plt.cm.binary_r, vmin=vmin,
+               vmax=vmax)
     plt.axis('off')
     plt.tight_layout(pad=0, w_pad=0, h_pad=0)
     plt.savefig(name + '.png', frameon=False)
-    #plt.show()
     print('Printed!')
 
-for lineartodb in lineartodbs :
+
+for lineartodb in lineartodbs:
     printBand(lineartodb, 'Sigma0_VV_db', -25, 5)
     plt.close()
-    #del calibrates, terrrains, speckles, lineartodbs
     gc.collect()
 
 print("processing time: " + str(time.time()-start_time) + "seconds")

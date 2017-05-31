@@ -26,7 +26,8 @@ EOF
 cookiefile=/home/cookies-nuvla.txt
 
 install_slipstream_api(){
-    sudo -H pip install \
+    apt install -y strace
+    sudo -H strace pip install \
         https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
     sudo mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
         /opt/slipstream/client/lib/slipstream
@@ -86,4 +87,3 @@ api.cimi_add('events', event)
 EOF
     python $event_script "$msg"
 }
-

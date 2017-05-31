@@ -26,7 +26,9 @@ EOF
 cookiefile=/home/cookies-nuvla.txt
 
 install_slipstream_api(){
-    apt install -y strace
+    sudo chown -R root /home/ubuntu/.cache/pip/http
+    sudo chown -R root /home/ubuntu/.cache/pip
+    
     pip install \
         https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
     mv /usr/local/lib/python2.7/dist-packages/slipstream/api \

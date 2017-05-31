@@ -29,7 +29,7 @@ install_slipstream_api(){
     sudo -H pip install \
         https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
     sudo mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
-        /opt/slipstream/client/lib/slipstream/api
+        /opt/slipstream/client/lib/slipstream
     sudo rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream
     sudo ln -s /opt/slipstream/client/lib/slipstream \
         /usr/local/lib/python2.7/dist-packages/slipstream

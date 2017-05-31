@@ -28,7 +28,7 @@ cookiefile=/home/cookies-nuvla.txt
 install_slipstream_api(){
     sudo -H pip install \
         https://github.com/slipstream/SlipStreamPythonAPI/archive/master.zip
-    
+    which slipstream
     sudo mv /usr/local/lib/python2.7/dist-packages/slipstream/api \
         /opt/slipstream/client/lib/slipstream/
     sudo rm -Rf /usr/local/lib/python2.7/dist-packages/slipstream

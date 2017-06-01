@@ -57,9 +57,8 @@ install_S1_toolbox() {
 configure_python_interface() {
     #TODO: check if SNAP is correctly installed
     apt install -y strace
-    strace -f bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7 \
-        /home/snap-engine/snap-python/src/main/resources/snappy && strace bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7 \
-            /home/snap-engine/snap-python/src/main/resources/snappy
+    sudo bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7 \
+        /home/snap-engine/snap-python/src/main/resources/snappy 
     # VERIF SNAPPY INTERFACE
     cd /opt/snap/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so

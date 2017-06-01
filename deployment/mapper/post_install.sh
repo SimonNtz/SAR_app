@@ -66,6 +66,6 @@ configure_python_interface() {
 }
 
 install_S1_toolbox
-ls /opt/
-#configure_python_interface || configure_python_interface
+configure_python_interface || configure_python_interface
+echo $?
 #install_slipstream_api

@@ -14,7 +14,7 @@ install_S1_toolbox() {
 
     # MAVEN_HOME=/usr/bin/mvn
     # export MAVEN_HOME
-    PATH=$PATH:$MAVEN_HOME/bin
+    #PATH=$PATH:$MAVEN_HOME/bin
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
     export JAVA_HOME
     PATH=$PATH:$JAVA_HOME/bin

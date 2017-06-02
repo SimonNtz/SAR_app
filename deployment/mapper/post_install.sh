@@ -56,9 +56,10 @@ install_S1_toolbox() {
 
 configure_python_interface() {
     #TODO: check if SNAP is correctly installed
-    #apt install -y strace
+    apt install -y strace
     cd /opt/snap/bin
-    ./snappy-conf /usr/bin/python2.7 /home/snap-engine/snap-python/src/main/resources/snappy
+    strace -f -o /var/log/slipstream/client/snappy-conf.strace ./snappy-conf /usr/bin/python2.7 /home/snap-engine/snap-python/src/main/resources/snappy
+
     # bash /opt/snap/bin/snap --nogui --nosplash --python /usr/bin/python2.7 \
     #     /home/snap-engine/snap-python/src/main/resources/snappy
     # if [ $? -ne 0 ]; then

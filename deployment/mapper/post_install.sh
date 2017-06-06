@@ -85,8 +85,8 @@ configure_python_interface() {
 
 
 config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
-set_x11
 install_S1_toolbox
+set_x11
 configure_python_interface
 echo $?
 #install_slipstream_api

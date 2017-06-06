@@ -9,12 +9,11 @@ set -e
 INSTAL4J_LICENSE_KEY=${1?"Provide Install4j license key."}
 
 source ../lib.sh
-source /opt/slipstream/client/sbin/slipstream.setenv
 
-S3_HOST=`ss-get s3-host`
-S3_BUCKET=`ss-get s3-bucket`
-S3_ACCESS_KEY=`ss-get s3-access-key`
-S3_SECRET_KEY=`ss-get s3-secret-key`
+# S3_HOST=`ss-get s3-host`
+# S3_BUCKET=`ss-get s3-bucket`
+# S3_ACCESS_KEY=`ss-get s3-access-key`
+# S3_SECRET_KEY=`ss-get s3-secret-key`
 
 install_S1_toolbox() {
 
@@ -85,7 +84,7 @@ configure_python_interface() {
 }
 
 
-config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
+#config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 install_S1_toolbox
 set_x11 &
 configure_python_interface

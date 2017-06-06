@@ -55,8 +55,9 @@ post_event 'Converted input into result.'
 
 # Push animated GIF to the object store through S3.
 config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
-s3cmd put $output s3://$S3_BUCKET
-ss-set ss:url.service https://$S3_HOST/$S3_BUCKET/$output
+cp $output /var/log/slipstream/client/
+#s3cmd put $output s3://$S3_BUCKET
+#ss-set ss:url.service https://$S3_HOST/$S3_BUCKET/$output
 post_event 'Pushed result to object store.'
 
 ss-set ready true

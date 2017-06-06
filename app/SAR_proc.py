@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/snap-engine/snap-python/src/main/resources/snappy')
+sys.path.append('/root/.snap/snap-python')
 import snappy
 from snappy import GPF
 from snappy import HashMap

@@ -65,7 +65,7 @@ install_S1_toolbox() {
 set_x11() {
 #set up to display products on remote ssh machine through X11
 echo -e "ForwardX11 yes\nForwardX11Trusted yes\n" >> /etc/ssh/ssh_config
-Xvfb :1
+Xvfb :1 &
 export DISPLAY=:1
 }
 
@@ -82,6 +82,6 @@ configure_python_interface() {
 
 install_S1_toolbox
 #set_x11
-xvfb-run configure_python_interface
+configure_python_interface
 echo $?
 #install_slipstream_api

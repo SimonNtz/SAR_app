@@ -23,7 +23,7 @@ install_S1_toolbox() {
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
     export JAVA_HOME
     PATH=$PATH:$JAVA_HOME/bin
-    s3cmd get s3://eodata/s3://eodata/esa-snap_sentinel_unix_5_0.sh
+    s3cmd get s3://eodata/esa-snap_sentinel_unix_5_0.sh
     #curl -O http://step.esa.int/downloads/5.0/installers/esa-snap_sentinel_unix_5_0.sh
     chmod +x esa-snap_sentinel_unix_5_0.sh
 

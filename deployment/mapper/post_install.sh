@@ -83,8 +83,9 @@ configure_python_interface() {
     ln -s ../amd64/libjhdf5.so
 }
 
-set_x11
+
 config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
+set_x11
 install_S1_toolbox
 configure_python_interface
 echo $?

@@ -71,15 +71,15 @@ export DISPLAY=:1
 configure_python_interface() {
     #TODO: check if SNAP is correctly installed
     cd /opt/snap/bin
-    ./snappy-conf /usr/bin/python2.7 /home/snap-engine/snap-python/src/main/resources/snappy
+    ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
 
     cd /opt/snap/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
     ln -s ../amd64/libjhdf5.so
 }
 
-install_S1_toolbox
 set_x11
+install_S1_toolbox
 configure_python_interface
 echo $?
 #install_slipstream_api

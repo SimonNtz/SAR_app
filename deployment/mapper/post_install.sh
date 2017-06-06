@@ -27,7 +27,7 @@ install_S1_toolbox() {
     #curl -O http://step.esa.int/downloads/5.0/installers/esa-snap_sentinel_unix_5_0.sh
     chmod +x esa-snap_sentinel_unix_5_0.sh
 
-    (printf 'o\n1\n\n\n2,3\ny\n\ny\n\ny\n') | ./esa-snap_sentinel_unix_5_0.sh
+    echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n" | ./esa-snap_sentinel_unix_5_0.sh
     #
     # cd /home
     #

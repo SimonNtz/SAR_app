@@ -81,7 +81,7 @@ configure_python_interface() {
 
 
 install_S1_toolbox
-set_x11 &
+set_x11
 configure_python_interface
 echo $?
 #install_slipstream_api

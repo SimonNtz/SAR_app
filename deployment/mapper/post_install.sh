@@ -9,6 +9,7 @@ set -e
 INSTAL4J_LICENSE_KEY=${1?"Provide Install4j license key."}
 
 source ../lib.sh
+source /opt/slipstream/client/sbin/slipstream.setenv
 
 S3_HOST=`ss-get s3-host`
 S3_BUCKET=`ss-get s3-bucket`

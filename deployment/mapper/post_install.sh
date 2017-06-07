@@ -75,7 +75,7 @@ Xvfb :1 -screen 0 1024x768x16 &
       #export DISPLAY=:1
       #TODO: check if SNAP is correctly installed
       cd /opt/snap/bin
-      ./snap --nosplash --python /usr/bin/python2.7 #&
+      ./snap --nogui --nosplash --python /usr/bin/python2.7 #&
       #kill -15 $XPID
       cd /opt/snap/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so

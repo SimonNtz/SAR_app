@@ -75,7 +75,7 @@ configure_python_interface() {
     export DISPLAY=:1
     cd /opt/snap/bin
     ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
-    /tmp/.X1-lock
+    rm /tmp/.X1-lock
     cd /opt/snap/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
     ln -s ../amd64/libjhdf5.so

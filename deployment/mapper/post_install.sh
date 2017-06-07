@@ -16,7 +16,7 @@ install_S1_toolbox() {
 
     # MAVEN_HOME=/usr/bin/mvn
     # export MAVEN_HOME
-    #PATH=$PATH:$MAVEN_HOME/bin
+      #PATH=$PATH:$MAVEN_HOME/bin
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
     export JAVA_HOME
     PATH=$PATH:$JAVA_HOME/bin
@@ -71,8 +71,11 @@ export DISPLAY=:1
 
 configure_python_interface() {
     #TODO: check if SNAP is correctly installed
+    Xvfb :1
+    export DISPLAY=:1
     cd /opt/snap/bin
     ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
+    /tmp/.X1-lock
     cd /opt/snap/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
     ln -s ../amd64/libjhdf5.so
@@ -81,6 +84,6 @@ configure_python_interface() {
 
 install_S1_toolbox
 #set_x11
-#configure_python_interface
+configure_python_interface &
 echo $?
 #install_slipstream_api

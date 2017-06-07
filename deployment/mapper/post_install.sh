@@ -70,9 +70,13 @@ Xvfb :1 -screen 0 1024x768x16 &
 }
 
   configure_python_interface() {
+      Xvfb :1 -screen 0 1024x768x16 &
+      XPID=$!
+      export DISPLAY=:1
       #TODO: check if SNAP is correctly installed
       cd /opt/snap/bin
-      ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
+      ./snappy-conf /usr/bin/python2.7 &
+      kill -15 $XPID
       cd /opt/snap/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so
       ln -s ../amd64/libjhdf5.so
@@ -80,9 +84,6 @@ Xvfb :1 -screen 0 1024x768x16 &
 
 
 install_S1_toolbox
-set_x11
-XPID=$!
-configure_python_interface &
-kill -15 $XPID
+configure_python_interface
 echo $?
 #install_slipstream_api

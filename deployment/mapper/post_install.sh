@@ -70,7 +70,7 @@ Xvfb :1 -screen 0 1024x768x16 &
 }
 
   configure_python_interface() {
-      Xvfb :1 #-screen 0 1024x768x16 &
+      Xvfb :1 -screen 0 1024x768x16 &
       XPID=$!
       export DISPLAY=:1
       #TODO: check if SNAP is correctly installed

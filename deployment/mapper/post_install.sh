@@ -76,9 +76,9 @@ Xvfb :1 -screen 0 1024x768x16 &
       #TODO: check if SNAP is correctly installed
       snaploc=/usr/local
       $snaploc/bin/snap --nosplash --python /usr/bin/python2.7 &
-      wait $!
-      #$snaploc/bin/snap --nogui --nosplash --python /usr/bin/python2.7
+      sleep 5
       kill -15 $XPID
+      # $snaploc/bin/snap --nogui --nosplash --python /usr/bin/python2.7
       cd $snaploc/snap/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so
       ln -s ../amd64/libjhdf5.so

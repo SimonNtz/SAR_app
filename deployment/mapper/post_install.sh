@@ -70,12 +70,12 @@ Xvfb :1 -screen 0 1024x768x16 &
 }
 
   configure_python_interface() {
-      Xvfb :1 -screen 0 1024x768x16 &
+      Xvfb :1 #-screen 0 1024x768x16 &
       XPID=$!
       export DISPLAY=:1
       #TODO: check if SNAP is correctly installed
       cd /opt/snap/bin
-      ./snappy-conf /usr/bin/python2.7 &
+      ./snap --nosplash --python /usr/bin/python2.7 &
       kill -15 $XPID
       cd /opt/snap/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so

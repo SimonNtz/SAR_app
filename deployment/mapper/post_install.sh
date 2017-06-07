@@ -64,26 +64,23 @@ install_S1_toolbox() {
 
 set_x11() {
 #set up to display products on remote ssh machine through X11
-echo -e "ForwardX11 yes\nForwardX11Trusted yes\n" >> /etc/ssh/ssh_config
-Xvfb :1 &
+#echo -e "ForwardX11 yes\nForwardX11Trusted yes\n" >> /etc/ssh/ssh_config
 export DISPLAY=:1
+Xvfb :1 -screen 99 1024x768x16
 }
 
-configure_python_interface() {
-    #TODO: check if SNAP is correctly installed
-    Xvfb :1
-    export DISPLAY=:1
-    cd /opt/snap/bin
-    ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
-    rm /tmp/.X1-lock
-    cd /opt/snap/snap/modules/lib/x86_64/
-    ln -s ../amd64/libjhdf.so
-    ln -s ../amd64/libjhdf5.so
-}
+  configure_python_interface() {
+      #TODO: check if SNAP is correctly installed
+      cd /opt/snap/bin
+      ./snappy-conf /usr/bin/python2.7 #/home/snap-engine/snap-python/src/main/resources/snappy
+      cd /opt/snap/snap/modules/lib/x86_64/
+      ln -s ../amd64/libjhdf.so
+      ln -s ../amd64/libjhdf5.so
+  }
 
 
 install_S1_toolbox
-#set_x11
-configure_python_interface &
+set_x11
+configure_python_interface
 echo $?
 #install_slipstream_api

@@ -81,6 +81,8 @@ Xvfb :1 -screen 0 1024x768x16 &
 
 install_S1_toolbox
 set_x11
-configure_python_interface
+XPID=$!
+configure_python_interface &
+kill -15 $XPID
 echo $?
 #install_slipstream_api

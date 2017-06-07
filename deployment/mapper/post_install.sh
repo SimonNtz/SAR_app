@@ -65,8 +65,8 @@ install_S1_toolbox() {
 set_x11() {
 #set up to display products on remote ssh machine through X11
 #echo -e "ForwardX11 yes\nForwardX11Trusted yes\n" >> /etc/ssh/ssh_config
-export DISPLAY=:1
-Xvfb :1 -screen 99 1024x768x16
+#export DISPLAY=:1
+Xvfb :1 -screen 0 1024x768x16 &
 }
 
   configure_python_interface() {

@@ -31,9 +31,9 @@ install_S1_toolbox() {
 
       snap --nosplash --python /usr/bin/python2.7 &
 
-      while [ ! -d ~/.snap/snap-python ]; do
-        sleep 5
-      done
+      #while [ ! -d ~/.snap/snap-python ]; do
+        sleep 15
+    # done
 
       kill -15 $XPID
 

@@ -4,7 +4,7 @@ set -e
 #
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
-s
+
 install_S1_toolbox() {
 
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
@@ -29,7 +29,7 @@ install_S1_toolbox() {
       ./$SNAP_LOC --nosplash --python /usr/bin/python2.7 &
       #sleep 5
       kill -15 $XPID
-      cd $SNAP_LOC/../../snap/modules/lib/x86_64/
+      cd $SNAP_LOC/../snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so
       ln -s ../amd64/libjhdf5.so
   }

@@ -5,7 +5,7 @@ set -e
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
 
-source ../lib.sh
+#source ../lib.sh
 
 install_S1_toolbox() {
 
@@ -28,7 +28,7 @@ install_S1_toolbox() {
 
       SNAP_LOC=/usr/local
       $SNAP_LOC/bin/snap --nosplash --python /usr/bin/python2.7 &
-      sleep 5
+      #sleep 5
       kill -15 $XPID
 
       cd $SNAP_LOC/snap/snap/modules/lib/x86_64/

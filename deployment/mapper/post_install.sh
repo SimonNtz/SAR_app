@@ -24,7 +24,10 @@ install_S1_toolbox() {
       Xvfb :1 -screen 0 1024x768x16 &
       XPID=$!
 
-      SNAP_LOC=`which snap`
+      SNAP_LOC=/opt/snap
+      if [ ! -d $SNAP_LOC ]; then
+        $SNAP_LOC=/usr/local/snap
+      fi
 
       ./$SNAP_LOC --nosplash --python /usr/bin/python2.7 &
       #sleep 5

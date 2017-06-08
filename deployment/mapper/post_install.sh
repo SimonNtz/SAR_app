@@ -31,7 +31,7 @@ install_S1_toolbox() {
 
       snap --nosplash --python /usr/bin/python2.7 &
 
-      while [ -d ~/.snap/snap-python ]; do
+      while [ ! -d ~/.snap/snap-python ]; do
         sleep 5
       done
 

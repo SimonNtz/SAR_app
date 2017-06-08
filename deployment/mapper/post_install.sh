@@ -5,8 +5,6 @@ set -e
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
 
-#source ../lib.sh
-
 install_S1_toolbox() {
 
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64

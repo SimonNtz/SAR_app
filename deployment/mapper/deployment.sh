@@ -32,7 +32,7 @@ get_data() {
 }
 
 run_proc() {
-    echo "java_max_mem: 14G" >> /root/.snap/snap-python/snappy.ini
+    echo "java_max_mem: 14G" >> /root/.snap/snap-python/snappy/snappy.ini
     for i in ${my_product[@]}; do
         python $SAR_proc $i
     done

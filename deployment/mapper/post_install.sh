@@ -22,7 +22,7 @@ install_S1_toolbox() {
 
       export DISPLAY=:1
       Xvfb :1 -screen 0 1024x768x16 &
-      XPID=$!
+      #XPID=$!
 
       SNAP_LOC=/opt/snap
       if [ ! -d $SNAP_LOC ]; then
@@ -31,7 +31,7 @@ install_S1_toolbox() {
 
       snap --nosplash --python /usr/bin/python2.7
 
-      sleep 240
+      sleep 150
 
       kill -15 $XPID
 

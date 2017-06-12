@@ -29,9 +29,7 @@ install_S1_toolbox() {
         SNAP_LOC=/usr/local/snap
       fi
 
-      snap --nogui --nosplash --python /usr/bin/python2.7 &
-
-      wait $!
+      snap --python /usr/bin/python2.7
 
       kill -15 $XPID
 

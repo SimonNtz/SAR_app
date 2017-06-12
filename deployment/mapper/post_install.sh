@@ -31,9 +31,9 @@ install_S1_toolbox() {
 
       snap --nosplash --python /usr/bin/python2.7 &
 
-      while [ ! -f ~/.snap/snap-python/snappy/snappy.ini ]; do
-        sleep 10
-      done
+      sleep 20
+
+      echo `ls ~/.snap/snap-python/snappy/`
 
       kill -15 $XPID
 

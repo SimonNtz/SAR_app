@@ -88,32 +88,26 @@ In order to successfully execute the application, you should have:
     done, the link to the result of the computation becomes available as the
     run-time parameter `ss:url.service` in the deployment Global section.
     Also, the command follows the progress of the deployment, detects when
-    the deployment has finished, recovers and prints the link to the result 
+    the deployment has finished, recovers and prints the link to the result
     of the computation.
 
 ## Scope
 
-Earth observation and in situ data have been made available online by space
-agencies including notably [ESA](https://scihub.copernicus.eu/dhus/#/home) and
-[ASF](https://vertex.daac.asf.alaska.edu/). Those datasets are continuously updated
-which makes possible time series analysis and many others applications. Such
-implementations, however, are highly demanding in resources.
+European Space Agency [ESA](ESA) provides Earth Observation Data captured by their [Sentinel-1](http://www.esa.int/Our_Activities/Observing_the_Earth/Copernicus/Sentinel-1/Introducing_Sentinel-1) satellites fleet. This dataset is constantly populated and posses now a big potential to be exploited in a wide spectrum of applications.
 
 ## Implementation
 
-The processing of the satellite images is distributed in a cluster and follows
-the MapReduce model.  The input and output files are stored in a object store
-located in the cloud.  The implementation aims to minimize the
+The processing of the satellite images are done using the [SNAP toolbox](http://step.esa.int/main/toolboxes/snap/) and its [Sentinel-1](https://sentinel.esa.int/web/sentinel/toolboxes/sentinel-1) module (S1tbx) in CLI. This computation is distributed over multiple nodes within a cloud cluster. The global execution is divided in two steps following the MapReduce model.  Finally, the implementation aims to minimize the
 execution time.
 
 *NOTE: in-progress, not fully optimize yet.*
 
-## Processing stages
+## SAR Processor stages
 
-Here are the steps the application follows:
-  
-  1. Subset
-  2. Calibrate
+The full image processing is done by calling multiple functions of the S1tbx. Here are the ones that we used.
+
+  1. Subsetting
+  2. Calibration
   3. Speckle-Filter (Dopler effect correction)
-  4. Terrain correction
-  5. PNG conversion
+  4. Terrain correction (Foreshortening and layover)
+  5. Linear to DB pixels conversion

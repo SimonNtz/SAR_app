@@ -97,7 +97,7 @@ European Space Agency [ESA](ESA) provides Earth Observation Data captured by the
 
 ## Implementation
 
-The processing of the satellite images are done using the [SNAP toolbox](http://step.esa.int/main/toolboxes/snap/) and its [Sentinel-1](https://sentinel.esa.int/web/sentinel/toolboxes/sentinel-1) module (S1tbx) in CLI. This computation is distributed over multiple nodes within a cloud cluster. The global execution is divided in two steps following the MapReduce model.  Finally, the implementation aims to minimize the
+The processing of the satellite images are done using the [SNAP toolbox](http://step.esa.int/main/toolboxes/snap/) and its Sentinel-1 module [S1tbx](https://sentinel.esa.int/web/sentinel/toolboxes/sentinel-1). This computation is distributed over multiple nodes within a cloud cluster. The global execution is divided in two steps following the MapReduce model.  Finally, the implementation aims to minimize the
 execution time.
 
 *NOTE: in-progress, not fully optimize yet.*

@@ -20,8 +20,9 @@ install_S1_toolbox() {
 
   configure_python_interface() {
 
+     export DISPLAY=:1
+
       Xvfb :1 -screen 0 1024x768x16 &
-      export DISPLAY=:1
 
       XPID=$!
 
@@ -30,7 +31,9 @@ install_S1_toolbox() {
         SNAP_LOC=/usr/local/snap
       fi
 
-      snap --nogui --python /usr/bin/python2.7
+      snap --nogui --python /usr/bin/python2.7 &
+
+      wait $!
 
       kill -15 $XPID
 

@@ -29,7 +29,7 @@ install_S1_toolbox() {
         SNAP_LOC=/usr/local/snap
       fi
 
-      snap --nosplash --python /usr/bin/python2.7
+      snap --nogui --nosplash --python /usr/bin/python2.7
 
       sleep 150
 

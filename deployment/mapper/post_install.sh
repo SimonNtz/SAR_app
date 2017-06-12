@@ -20,22 +20,20 @@ install_S1_toolbox() {
 
   configure_python_interface() {
 
-      export DISPLAY=:1
-      Xvfb :1 -screen 0 1024x768x16 &
-      XPID=$!
+      #export DISPLAY=:1
+      #Xvfb :1 -screen 0 1024x768x16 &
+      #XPID=$!
 
       SNAP_LOC=/opt/snap
       if [ ! -d $SNAP_LOC ]; then
         SNAP_LOC=/usr/local/snap
       fi
 
-      snap --nosplash --python /usr/bin/python2.7 &
+      snap --nogui --nosplash --python /usr/bin/python2.7 &
 
-      sleep 20
+      wait $!
 
-      echo `ls ~/.snap/snap-python/snappy/`
-
-      kill -15 $XPID
+      #kill -15 $XPID
 
       cd $SNAP_LOC/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so

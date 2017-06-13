@@ -50,7 +50,7 @@ post_event "Reducer has finished to download corrected product."
 
 # Create the final output
 output=SAR_animation_$(date +%s).gif
-convert -delay 50 -loop 0 *.png $output
+convert -delay 90 -loop 0 *.png $output
 post_event 'Converted input into result.'
 
 # Push animated GIF to the object store through S3.

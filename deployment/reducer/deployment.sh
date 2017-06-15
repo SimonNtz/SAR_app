@@ -51,4 +51,5 @@ post_event "Reducer has finished to download corrected product."
 
 # Create the final output
 SAR_converter=SAR_convert`ss-get converter`.sh
-bash ~/SAR_proc/reducer/$SAR_converter
+cd ~/SAR_proc/reducer/
+./$SAR_converter

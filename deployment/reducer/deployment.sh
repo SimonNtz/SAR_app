@@ -48,16 +48,7 @@ create_cookie "`ss-get --noblock nuvla_token`"
 wait_mappers_ready
 post_event "Reducer has finished to download corrected product."
 
+
 # Create the final output
-output=SAR_animation_$(date +%s).gif
-convert -delay 90 -loop 0 *.png $output
-post_event 'Converted input into result.'
-
-# Push animated GIF to the object store through S3.
-config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
-cp $output /var/log/slipstream/client/
-#s3cmd put $output s3://$S3_BUCKET
-#ss-set ss:url.service https://$S3_HOST/$S3_BUCKET/$output
-post_event 'Pushed result to object store.'
-
-ss-set ready true
+SAR_converter=SAR_convert`ss-get converter`.sh
+bash ~/SAR_proc/reducer/$SAR_converter

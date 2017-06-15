@@ -8,8 +8,6 @@ SAR_data=(`ss-get product-list`)
 
 source ../lib.sh
 
-SAR_proc=../../app/SAR_proc.py
-
 id=`ss-get id`
 my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
@@ -32,10 +30,15 @@ get_data() {
 }
 
 run_proc() {
+
     echo "java_max_mem: 14G" >> /root/.snap/snap-python/snappy/snappy.ini
+
+    SAR_proc=~/SAR_proc/mapper/SAR_proc_`ss-get proccessor`.py
+
     for i in ${my_product[@]}; do
         python $SAR_proc $i
     done
+
     # FIXME SAR_proc should store into current directory.
     find . -maxdepth 1 -name *.png -exec cp {} $id.png \;
     #TODO clear .snap/var/temp/cache files

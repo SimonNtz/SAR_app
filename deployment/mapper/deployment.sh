@@ -33,7 +33,7 @@ run_proc() {
 
     echo "java_max_mem: 14G" >> /root/.snap/snap-python/snappy/snappy.ini
 
-    SAR_proc=~/SAR_proc/mapper/SAR_proc_`ss-get proccessor`.py
+    SAR_proc=~/SAR_proc/mapper/SAR_proc_`ss-get processor`.py
 
     for i in ${my_product[@]}; do
         python $SAR_proc $i

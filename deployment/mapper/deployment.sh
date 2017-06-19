@@ -30,10 +30,8 @@ get_data() {
 }
 
 run_proc() {
-
-    echo "java_max_mem: 14G" >> /root/.snap/snap-python/snappy/snappy.ini
-
-    SAR_proc=~/SAR_proc/mapper/SAR_proc_`ss-get processor`.py
+    echo "java_max_mem: `ss-get snap_max_mem`" >> /root/.snap/snap-python/snappy/snappy.ini
+    SAR_proc=~/SAR_proc/SAR_mapper.py
 
     for i in ${my_product[@]}; do
         python $SAR_proc $i
@@ -48,17 +46,9 @@ push_product() {
     nc $reducer_ip 808$id < $id.png
 }
 
-# Retrieve the client's Nuvla token through the application component parameters
-create_cookie "`ss-get --noblock reducer:nuvla_token`"
-
-post_event "mapper.$id: starts downloading $my_product"
 config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET
-
-post_event "mapper.$id: starts image processing"
 run_proc
-
-post_event "mapper.$id: is sending output to reducer"
 push_product
 
 ss-set ready true

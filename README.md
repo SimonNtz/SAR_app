@@ -111,3 +111,4 @@ The full image processing is done by calling multiple functions of the S1tbx. He
   3. Speckle-Filter (Dopler effect correction)
   4. Terrain correction (Foreshortening and layover)
   5. Linear to DB pixels conversion
+  1. Conversion in *PNG* format

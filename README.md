@@ -106,8 +106,8 @@ execution time.
 
 The full image processing is done by calling multiple functions of the S1tbx. Here are the ones that we used.
 
-  1. Subsetting
-  2. Calibration
+  1. Subsetting (crop image on ROI)
+  2. Calibration (radiometric, outputting beta-nought)
   3. Speckle-Filter (Dopler effect correction)
   4. Terrain correction (Foreshortening and layover)
   5. Linear to DB pixels conversion

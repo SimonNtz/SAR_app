@@ -13,10 +13,10 @@ my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
 echo "Product for processing: ${my_product[@]}"
 
-S3_HOST=`ss-get s3-host`
-S3_BUCKET=`ss-get s3-bucket`
-S3_ACCESS_KEY=`ss-get s3-access-key`
-S3_SECRET_KEY=`ss-get s3-secret-key`
+S3_HOST=`ss-get --noblock s3-host`
+S3_BUCKET=`ss-get --noblock s3-bucket`
+S3_ACCESS_KEY=`ss-get --noblock s3-access-key`
+S3_SECRET_KEY=`ss-get --noblock s3-secret-key`
 
 reducer_ip=`ss-get reducer:hostname`
 

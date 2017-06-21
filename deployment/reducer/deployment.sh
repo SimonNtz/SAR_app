@@ -6,10 +6,10 @@ set -o pipefail
 
 source ../lib.sh
 
-S3_HOST=`ss-get s3-host`
-S3_BUCKET=`ss-get s3-bucket`
-S3_ACCESS_KEY=`ss-get s3-access-key`
-S3_SECRET_KEY=`ss-get s3-secret-key`
+S3_HOST=`ss-get --noblock s3-host`
+S3_BUCKET=`ss-get --noblock s3-bucket`
+S3_ACCESS_KEY=`ss-get --noblock s3-access-key`
+S3_SECRET_KEY=`ss-get --noblock s3-secret-key`
 
 set_listeners() {
     # Lauch netcat daemons for each  product

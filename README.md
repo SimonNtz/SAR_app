@@ -93,8 +93,8 @@ In order to successfully execute the application, you should have:
 
 ## Modularity
 
-The *SAR_app* scripts form the application's base however the map and reduce functions are located in an other *Github* repository [SAR_proc](https://github.com/SimonNtz/SAR_proc/).
-During the deployment it get cloned locally thanks to an app parameter containing its URL.
+The *SAR_app's* scripts form the application's base however the map and reduce functions are located in an other *Github* repository, by default [SAR_proc](https://github.com/SimonNtz/SAR_proc/).
+During the deployment it get cloned locally using an application's parameter containing its respective URL.
 
 The intent behind isolating the SAR processor from the rest is to make it customizable to the users with less effort.
 

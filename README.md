@@ -91,9 +91,23 @@ In order to successfully execute the application, you should have:
     the deployment has finished, recovers and prints the link to the result
     of the computation.
 
+## Modularity
+
+The *SAR_app* scripts form the application's base however the map and reduce functions are located in an other *Github* repository [SAR_proc](https://github.com/SimonNtz/SAR_proc/).
+During the deployment it get cloned locally thanks to an app parameter containing its URL.
+
+The intent behind isolating the SAR processor from the rest is to make it customizable to the users with less effort.
+
+While running the client script, a *Github* repository url respecting the [SAR_proc](https://github.com/SimonNtz/SAR_proc/) requirements can be pass as an input parameter.
+
+```
+$ ./SAR_run.sh <cloud> <https://github.com/YOUR_USERNAME/SAR_proc>
+```
+
+
 ## Scope
 
-European Space Agency [ESA](ESA) provides Earth Observation Data captured by their [Sentinel-1](http://www.esa.int/Our_Activities/Observing_the_Earth/Copernicus/Sentinel-1/Introducing_Sentinel-1) satellites fleet. This dataset is constantly populated and posses now a big potential to be exploited in a wide spectrum of applications.
+European Space Agency [ESA](ESA) provides Earth Observation Data captured by their [Sentinel-1](http://www.esa.int/Our_Activities/Observing_the_Earth/Copernicus/Sentinel-1/Introducing_Sentinel-1) satellites fleet. Being constantly populated this dataset posses now a big potential to be exploited in a wide spectrum of applications.
 
 ## Implementation
 

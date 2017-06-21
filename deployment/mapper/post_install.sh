@@ -20,6 +20,7 @@ install_S1_toolbox() {
 
   configure_python_interface() {
 
+     snap --nogui --nosplash --modules --refresh --update-all
      export DISPLAY=:1
 
       Xvfb :1 -screen 0 1024x768x16 &

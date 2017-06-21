@@ -95,8 +95,7 @@ In order to successfully execute the application, you should have:
 
 The *SAR_app's* scripts form the application's base however the map and reduce functions are located in an other *Github* repository, by default [SAR_proc](https://github.com/SimonNtz/SAR_proc/).
 During the deployment it get cloned locally using an application's parameter containing its respective URL.
-
-The intent behind isolating the SAR processor from the rest is to make it customizable to the users with less effort.
+The intent behind isolating the SAR processor is to make it customizable to the users with less effort.
 
 While running the client script, a *Github* repository url respecting the [SAR_proc](https://github.com/SimonNtz/SAR_proc/) requirements can be pass as an input parameter.
 

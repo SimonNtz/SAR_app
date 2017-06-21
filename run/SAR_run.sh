@@ -34,10 +34,10 @@ python -u `which ss-execute` \
     reducer:git-repo=$GH_REPO" \
     EO_Sentinel_1/procSAR 2>&1 | tee $LOG
 
-if [ "$?" == "0" ]; then
-    run=`awk '/::: Waiting/ {print $7}' $LOG`
-    echo "::: URL with the computed result:"
-    curl -u $SLIPSTREAM_USERNAME:$SLIPSTREAM_PASSWORD \
-        $run/ss:url.service
-    echo
-fi
+# if [ "$?" == "0" ]; then
+#     run=`awk '/::: Waiting/ {print $7}' $LOG`
+#     echo "::: URL with the computed result:"
+#     curl -u $SLIPSTREAM_USERNAME:$SLIPSTREAM_PASSWORD \
+#         $run/ss:url.service
+#     echo
+# fi

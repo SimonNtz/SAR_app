@@ -22,7 +22,6 @@ reducer_ip=`ss-get reducer:hostname`
 
 get_data() {
     bucket=${1?"Provide bucket name."}
-
     echo $(date)
     for i in ${my_product[@]}; do
         python3 get_data.py "$i.SAFE" "https://$S3_BUCKET.$S3_HOST/"

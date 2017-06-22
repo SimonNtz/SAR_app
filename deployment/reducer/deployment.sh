@@ -21,7 +21,7 @@ check_mappers_ready() {
     # whithin these a timeout checking mapper's ready state is triggered.
 
     echo -n $ids | xargs -d ' ' -I% bash -c '(
-    ss-get --timeout 1800 mapper.%:ready
+    ss-get --timeout 2600 mapper.%:ready
     echo 'mapper.'%':ready' >>readylock.md
     exit 0) &'
 }

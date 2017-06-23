@@ -1,4 +1,4 @@
-##### scrap data urls from 'host_base' xml file and recover file using #####
+#####  Scrap data urls from 'host_base' xml file and recover file using #####
 ##### 'python requests' lib. #####
 #####  works only with python >= 3.2 #####
 

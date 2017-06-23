@@ -19,27 +19,25 @@ install_S1_toolbox() {
 }
 
   configure_python_interface() {
-
-     snap --nogui --nosplash --modules --refresh --update-all &
-     wait $!
-
+# Check for the SNAP installation output directory
+# b.c. it may defer depending on the cloud service
+    SNAP_LOC=/opt/snap
+    if [ ! -d $SNAP_LOC ]; then
+      SNAP_LOC=/usr/local/snap
+    fi
+# Dump SNAP with fake display port
      export DISPLAY=:1
-
-      Xvfb :1 -screen 0 1024x768x16 &
-
-      XPID=$!
-
-      SNAP_LOC=/opt/snap
-      if [ ! -d $SNAP_LOC ]; then
-        SNAP_LOC=/usr/local/snap
-      fi
-
-      snap --nogui --python /usr/bin/python2.7 &
-
+     Xvfb :1 -screen 0 1024x768x16 &
+     XPID=$!
+# SNAP update
+      snap --nogui --nosplash --modules --refresh --update-all &
       wait $!
-
+# Python interface configuration ! Really unstable when running remotely via SSH !
+      snap --nogui --python /usr/bin/python2.7 &
+      wait $!
+# Kill display port
       kill -15 $XPID
-
+# File system configuration
       cd $SNAP_LOC/snap/modules/lib/x86_64/
       ln -s ../amd64/libjhdf.so
       ln -s ../amd64/libjhdf5.so

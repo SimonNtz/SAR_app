@@ -15,8 +15,6 @@ echo "Product for processing: ${my_product[@]}"
 
 S3_HOST=`ss-get s3-host`
 S3_BUCKET=`ss-get s3-bucket`
-#S3_ACCESS_KEY=`ss-get s3-access-key`
-#S3_SECRET_KEY=`ss-get s3-secret-key`
 
 reducer_ip=`ss-get reducer:hostname`
 
@@ -24,7 +22,7 @@ get_data() {
     bucket=${1?"Provide bucket name."}
     echo $(date)
     for i in ${my_product[@]}; do
-        python3  get_data.py "https://$S3_BUCKET.$S3_HOST/" "$i.SAFE" 
+        python3  get_data.py "https://$S3_BUCKET.$S3_HOST/" "$i.SAFE"
         #sudo s3cmd get --recursive s3://$bucket/$i.SAFE
     done
     echo $(date)

@@ -17,14 +17,8 @@ install_S1_toolbox() {
 
     curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
     chmod +x $SNAP_INSTALLER
-    echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
-
-    # Check for the SNAP installation output directory
-    # b.c. it may defer depending on the cloud service
-    SNAP_LOC=/opt/snap
-    if [ ! -d $SNAP_LOC ]; then
-      SNAP_LOC=/usr/local/snap
-    fi
+    # Impose the SNAP' folder installation
+    echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
     # File system configuration for SNAP' datafiles
     cd $SNAP_LOC/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
@@ -41,22 +35,14 @@ apt-get install -y filebeat
 }
 
 configure_python_interface() {
-    SNAP_LOC=/opt/snap
-    if [ ! -d $SNAP_LOC ]; then
-      SNAP_LOC=/usr/local/snap
-    fi
 # Dump SNAP with fake display port
      export DISPLAY=:1
      Xvfb :1 -screen 0 1024x768x16 &
      XPID=$!
-# SNAP update
-      snap --nogui --nosplash --modules --refresh --update-all &
+# SNAP update TODO Add to SAR_proc
+      bash /usr/bin/snap --nogui --nosplash --modules --refresh --update-all &
       wait $!
-# Python interface configuration ! Really unstable when running remotely via SSH !
-      snap --nogui --python /usr/bin/python2.7 &
-      wait $!
-# Kill display port
-      kill -15 $XPID
+
   }
 
 install_S1_toolbox

@@ -19,6 +19,13 @@ install_S1_toolbox() {
     chmod +x $SNAP_INSTALLER
     echo -e "o\n1\n\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
     #echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n"
+    SNAP_LOC=/opt/snap
+    if [ ! -d $SNAP_LOC ]; then
+      SNAP_LOC=/usr/local/snap
+    fi
+    cd $SNAP_LOC/snap/modules/lib/x86_64/
+    ln -s ../amd64/libjhdf.so
+    ln -s ../amd64/libjhdf5.so
 }
 
   configure_python_interface() {

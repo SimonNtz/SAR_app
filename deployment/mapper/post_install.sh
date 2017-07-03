@@ -17,12 +17,15 @@ install_S1_toolbox() {
 
     curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
     chmod +x $SNAP_INSTALLER
-    echo -e "o\n1\n\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
-    #echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n"
+    echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
+
+    # Check for the SNAP installation output directory
+    # b.c. it may defer depending on the cloud service
     SNAP_LOC=/opt/snap
     if [ ! -d $SNAP_LOC ]; then
       SNAP_LOC=/usr/local/snap
     fi
+    # File system configuration for SNAP' datafiles
     cd $SNAP_LOC/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
     ln -s ../amd64/libjhdf5.so
@@ -38,8 +41,6 @@ apt-get install -y filebeat
 }
 
 configure_python_interface() {
-# Check for the SNAP installation output directory
-# b.c. it may defer depending on the cloud service
     SNAP_LOC=/opt/snap
     if [ ! -d $SNAP_LOC ]; then
       SNAP_LOC=/usr/local/snap
@@ -56,10 +57,6 @@ configure_python_interface() {
       wait $!
 # Kill display port
       kill -15 $XPID
-# File system configuration
-      cd $SNAP_LOC/snap/modules/lib/x86_64/
-      ln -s ../amd64/libjhdf.so
-      ln -s ../amd64/libjhdf5.so
   }
 
 install_S1_toolbox

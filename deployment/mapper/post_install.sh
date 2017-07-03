@@ -18,7 +18,7 @@ install_S1_toolbox() {
     curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
     chmod +x $SNAP_INSTALLER
     echo -e "o\n1\n\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
-    echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n"
+    #echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n"
 }
 
   configure_python_interface() {
@@ -47,6 +47,6 @@ install_S1_toolbox() {
   }
 
 install_S1_toolbox
-ls ./snap/snap-python/snappy/
+ls /.snap/snap-python/snappy/
 #configure_python_interface
 echo $?

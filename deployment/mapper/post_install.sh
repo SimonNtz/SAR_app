@@ -14,11 +14,11 @@ install_S1_toolbox() {
     PATH=$PATH:$JAVA_HOME/bin
 
     SNAP_INSTALLER=esa-snap_sentinel_unix_5_0.sh
-
+    SNAP_LOC=/usr/local/snap
     curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
     chmod +x $SNAP_INSTALLER
     # Impose the SNAP' folder installation
-    echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
+    echo -e "o\n1\n$SNAP_LOC\n2\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
     # File system configuration for SNAP' datafiles
     cd $SNAP_LOC/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so

@@ -54,6 +54,6 @@ install_S1_toolbox() {
   }
 
 install_S1_toolbox
-ls ~/.snap/snap-python/snappy/
+#ls ~/.snap/snap-python/snappy/
 #configure_python_interface
 echo $?

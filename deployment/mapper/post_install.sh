@@ -1,7 +1,8 @@
 #!/bin/bash
 set -x
 set -e
-set -pipefail
+set -o pipefail
+
 #
 # Functional on Ubuntu distribution Version 16.04 LTS
 #

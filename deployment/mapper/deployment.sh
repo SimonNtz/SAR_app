@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 set -x
-set -o pipefail
+set -o
 
 SAR_data=(`ss-get product-list`)
 [ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."

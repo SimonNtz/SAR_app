@@ -28,6 +28,42 @@ get_data() {
     echo $(date)
 }
 
+start_filebeat() {
+
+server_ip=`ss-get --timeout=300 ELK-server:hostname`
+server_hostname=`ss-get --timeout=300 Server:machine-hn`
+
+echo  "$server_ip   $server_hostname">>/etc/hosts
+
+cd /etc/filebeat/
+
+filebeat_conf=filebeat.yml
+
+#Set Logstash as an input instead of ElasticStash
+sed -i '81,83 s/^/#/' $filebeat_conf
+awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog"; else print $0}' $filebeat_conf > tmp && mv tmp $filebeat_conf
+
+cat>>$filebeat_conf<<EOF
+output.logstash:
+  # The Logstash hosts
+  hosts: ["$server_hostname:5443"]
+  bulk_max_size: 2048
+  template.name: "filebeat"
+  template.path: "filebeat.template.json"
+  template.overwrite: false
+document-type: syslog
+EOF
+
+chmod go-w /etc/filebeat/filebeat.yml
+filebeat.sh -configtest -c $filebeat_conf
+
+sudo systemctl start filebeat
+sudo systemctl enable filebeat
+
+# Capture filebeat status
+systemctl status filebeat | grep Active
+}
+
 run_proc() {
     echo "java_max_mem: `ss-get snap_max_mem`" >> /root/.snap/snap-python/snappy/snappy.ini
     SAR_proc=~/SAR_proc/SAR_mapper.py
@@ -45,8 +81,10 @@ push_product() {
     nc $reducer_ip 808$id < $id.png
 }
 
-config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
+
+#config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET
+start_filebeat
 run_proc
 push_product
 

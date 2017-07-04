@@ -34,22 +34,22 @@ install_S1_toolbox() {
 # echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
 # apt-get update
 # apt-get install -y filebeat
-}
+#}
 
-configure_python_interface() {
-# Dump SNAP with fake display port
-     export DISPLAY=:1
-     Xvfb :1 -screen 0 1024x768x16 &
-     XPID=$!
-# SNAP update
-      snap --nogui --nosplash --modules --refresh --update-all &
-      wait $!
-# Python interface configuration ! Really unstable when running remotely via SSH !
-      snap --nogui --python /usr/bin/python2.7 &
-      wait $!
-# Kill display port
-      kill -15 $XPID
-  }
+# configure_python_interface() {
+# # Dump SNAP with fake display port
+#      export DISPLAY=:1
+#      Xvfb :1 -screen 0 1024x768x16 &
+#      XPID=$!
+# # SNAP update
+#       snap --nogui --nosplash --modules --refresh --update-all &
+#       wait $!
+# # Python interface configuration ! Really unstable when running remotely via SSH !
+#       snap --nogui --python /usr/bin/python2.7 &
+#       wait $!
+# # Kill display port
+#       kill -15 $XPID
+#   }
 
 install_S1_toolbox
 #install_filebeat

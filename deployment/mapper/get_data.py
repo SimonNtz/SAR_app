@@ -39,4 +39,4 @@ for child in tree :
         if len(child) > 0 and get_prd_name(child[0].text) == prd_name:
                 create_subdir(child[0].text)
                 download_file(host_base + child[0].text, child[0].text)
-                print("File URL:", host_base + child[0].text)
+                print("File URL:", host_base + '/' + child[0].text)

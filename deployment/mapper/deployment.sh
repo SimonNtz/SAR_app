@@ -97,6 +97,7 @@ echo $(date)
 install_filebeat
 echo $(date)
 start_filebeat
+cd ~/SAR_mapper/deployment/mapper
 run_proc
 push_product
 

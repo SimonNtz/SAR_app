@@ -29,11 +29,11 @@ get_data() {
 }
 
 install_filebeat() {
-apt-get install -y apt-transport-https
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
-apt-get update
-apt-get install -y filebeat
+  apt-get install -y apt-transport-https
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-5.x.list
+  apt-get update
+  apt-get install -y filebeat
 }
 
 start_filebeat() {

@@ -98,7 +98,7 @@ echo $(date)
 install_filebeat
 echo $(date)
 start_filebeat
-wait gd_pid
+wait $gd_pid
 run_proc
 push_product
 

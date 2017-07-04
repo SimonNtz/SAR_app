@@ -62,7 +62,7 @@ configure_python_interface() {
   }
 
 install_S1_toolbox
-install_filebeat
+#install_filebeat
 #ls ~/.snap/snap-python/snappy/
 #configure_python_interface
 echo $?

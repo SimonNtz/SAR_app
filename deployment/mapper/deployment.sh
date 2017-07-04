@@ -92,8 +92,10 @@ apt-get install -y filebeat
 
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET
+echo $(date)
 install_filebeat
-start_filebeat
+echo $(date)
+#start_filebeat
 run_proc
 push_product
 

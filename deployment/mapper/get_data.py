@@ -16,7 +16,7 @@ def download_file(url, f_name):
     #local_filename = string.split(url, '/')[-1]
     local_filename = f_name
     # NOTE the stream=True parameter
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, verify=False)
     with open(local_filename, 'wb') as f:
         for chunk in r.iter_content(chunk_size=1024):
             if chunk: # filter out keep-alive new chunks

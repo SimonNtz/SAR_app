@@ -35,6 +35,7 @@ echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee 
 apt-get update
 apt-get install -y filebeat
 }
+
 start_filebeat() {
 
 server_ip=`ss-get --timeout=300 ELK_server:hostname`
@@ -48,7 +49,9 @@ filebeat_conf=filebeat.yml
 
 #Set Logstash as an input instead of ElasticStash
 sed -i '81,83 s/^/#/' $filebeat_conf
-awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog"; else print $0}' $filebeat_conf > tmp && mv tmp $filebeat_conf
+awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog \
+       - /var/log/slipstream/client/slipstream-node.log";else print $0}' \
+        $filebeat_conf > tmp && mv tmp $filebeat_conf
 
 cat>>$filebeat_conf<<EOF
 output.logstash:
@@ -61,7 +64,7 @@ output.logstash:
 document-type: syslog
 EOF
 
-chmod go-w /etc/filebeat/filebeat.yml
+chmod go-w $filebeat_conf
 filebeat.sh -configtest -c $filebeat_conf
 
 sudo systemctl start filebeat
@@ -89,12 +92,12 @@ push_product() {
 }
 
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
-#get_data $S3_BUCKET
+get_data $S3_BUCKET
 echo $(date)
 install_filebeat
 echo $(date)
 start_filebeat
-#run_proc
+run_proc
 push_product
 
 ss-set ready true

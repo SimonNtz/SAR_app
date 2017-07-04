@@ -12,21 +12,16 @@ install_S1_toolbox() {
     JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
     export JAVA_HOME
     PATH=$PATH:$JAVA_HOME/bin
-
+    SNAP_LOC=/usr/local/snap
     SNAP_INSTALLER=esa-snap_sentinel_unix_5_0.sh
 
+    # Impose the SNAP installation output directory
+    # b.c. the cloud service can change it deliberately
     curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
     chmod +x $SNAP_INSTALLER
-    echo -e "o\n1\n\n2\ny\ny\ny\n/usr/bin/python2.7\ny\ny\n" | ./$SNAP_INSTALLER
+    echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
     #echo -e "o\n1\n\n\n2,3\ny\n\ny\n\ny\n"
 
-
-    # Check for the SNAP installation output directory
-    # b.c. it may defer depending on the cloud service
-    SNAP_LOC=/opt/snap
-    if [ ! -d $SNAP_LOC ]; then
-      SNAP_LOC=/usr/local/snap
-    fi
     # File system configuration for SNAP' datafiles
     cd $SNAP_LOC/snap/modules/lib/x86_64/
     ln -s ../amd64/libjhdf.so
@@ -43,10 +38,6 @@ apt-get install -y filebeat
 }
 
 configure_python_interface() {
-    SNAP_LOC=/opt/snap
-    if [ ! -d $SNAP_LOC ]; then
-      SNAP_LOC=/usr/local/snap
-    fi
 # Dump SNAP with fake display port
      export DISPLAY=:1
      Xvfb :1 -screen 0 1024x768x16 &

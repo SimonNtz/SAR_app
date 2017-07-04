@@ -32,7 +32,7 @@ def create_subdir (path) :
 def get_prd_name(f):
         return(str.split(f, '/')[0])
 
-response = requests.get(host_base, verify=False)
+response = requests.get(host_base)
 tree = ElementTree.fromstring(response.content)
 
 for child in tree :

@@ -81,9 +81,18 @@ push_product() {
     nc $reducer_ip 808$id < $id.png
 }
 
+install_filebeat() {
+apt-get install -y apt-transport-https
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+apt-get update
+apt-get install -y filebeat
+}
+
 
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET
+install_filebeat
 start_filebeat
 run_proc
 push_product

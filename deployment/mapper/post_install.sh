@@ -34,7 +34,7 @@ install_filebeat() {
   wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
   echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
   apt-get update
-  echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+  export DEBIAN_FRONTEND="noninteractive"
   sudo apt-get install -y filebeat
 }
 
@@ -54,7 +54,7 @@ install_filebeat() {
 #   }
 
 install_S1_toolbox
-install_filebeat
+#install_filebeat
 #ls ~/.snap/snap-python/snappy/
 #configure_python_interface
 echo $?

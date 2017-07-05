@@ -28,13 +28,14 @@ install_S1_toolbox() {
     ln -s ../amd64/libjhdf5.so
 }
 
-#install_filebeat() {
-# apt-get install -y apt-transport-https
-# wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-# echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
-# apt-get update
-# apt-get install -y filebeat
-#}
+install_filebeat() {
+apt-get update
+sudo apt-get install -y apt-transport-https
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-5.x.list
+apt-get update
+sudo apt-get install -y filebeat
+}
 
 # configure_python_interface() {
 # # Dump SNAP with fake display port
@@ -52,7 +53,7 @@ install_S1_toolbox() {
 #   }
 
 install_S1_toolbox
-#install_filebeat
+install_filebeat
 #ls ~/.snap/snap-python/snappy/
 #configure_python_interface
 echo $?

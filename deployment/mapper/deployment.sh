@@ -94,7 +94,7 @@ push_product() {
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET $S3_HOST
 echo $(date)
-install_filebeat
+#install_filebeat
 echo $(date)
 start_filebeat
 cd ~/SAR_mapper/deployment/mapper

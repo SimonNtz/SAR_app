@@ -41,7 +41,7 @@ filebeat_conf=filebeat.yml
 
 #Set Logstash as an input instead of ElasticStash
 sed -i '81,83 s/^/#/' $filebeat_conf
-awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog \
+awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog\n \
        - /var/log/slipstream/client/slipstream-node.log";else print $0}' \
         $filebeat_conf > tmp && mv tmp $filebeat_conf
 

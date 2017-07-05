@@ -28,14 +28,6 @@ get_data() {
     echo $(date)
 }
 
-install_filebeat() {
-  apt-get install -y apt-transport-https
-  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-  echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-5.x.list
-  apt-get update
-  apt-get install -y filebeat
-}
-
 start_filebeat() {
 
 server_ip=`ss-get --timeout=300 ELK_server:hostname`
@@ -93,11 +85,10 @@ push_product() {
 
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 get_data $S3_BUCKET $S3_HOST
-echo $(date)
-#install_filebeat
-echo $(date)
+
 start_filebeat
-cd ~/SAR_mapper/deployment/mapper
+
+cd ~/SAR_app/deployment/mapper
 run_proc
 push_product
 

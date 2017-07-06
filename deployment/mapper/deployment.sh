@@ -44,10 +44,16 @@ sed -i '81,83 s/^/#/' $filebeat_conf
 # awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog\n \
 #     - /var/log/slipstream/client/slipstream-node.log";else print $0}' \
 #         $filebeat_conf > tmp && mv tmp $filebeat_conf
-awk '{ if (NR == 22) print "    - /var/log/";else print $0}' \
-        $filebeat_conf > tmp && mv tmp $filebeat_conf
 
-cat>>$filebeat_conf<<EOF
+cat>$filebeat_conf<<EOF
+filebeat.prospectors:
+- input_type: log
+
+  paths:
+    - /var/log/auth.log
+    - /var/log/syslog
+    - /var/log/slipstream/client/slipstream-node.log
+    document-type: syslog
 output.logstash:
   # The Logstash hosts
   hosts: ["$server_hostname:5443"]
@@ -55,7 +61,6 @@ output.logstash:
   template.name: "filebeat"
   template.path: "filebeat.template.json"
   template.overwrite: false
-document-type: syslog
 EOF
 
 chmod go-w $filebeat_conf

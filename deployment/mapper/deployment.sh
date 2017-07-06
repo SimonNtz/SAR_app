@@ -53,7 +53,7 @@ filebeat.prospectors:
     - /var/log/auth.log
     - /var/log/syslog
     - /var/log/slipstream/client/slipstream-node.log
-    document-type: syslog
+
 output.logstash:
   # The Logstash hosts
   hosts: ["$server_hostname:5443"]
@@ -61,6 +61,7 @@ output.logstash:
   template.name: "filebeat"
   template.path: "filebeat.template.json"
   template.overwrite: false
+document-type: syslog
 EOF
 
 chmod go-w $filebeat_conf

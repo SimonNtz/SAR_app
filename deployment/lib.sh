@@ -21,7 +21,7 @@ EOF
 
 install_ntp() {
   timedatectl set-ntp no
-  apt-get install ntp
+  apt-get install -y ntp
 }
 
 #

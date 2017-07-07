@@ -7,7 +7,7 @@ set -o pipefail
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
 
-source ../lib.sh
+
 
 install_S1_toolbox() {
 
@@ -29,10 +29,6 @@ install_S1_toolbox() {
   ln -s ../amd64/libjhdf5.so
 }
 
-install_ntp{
-  timedatectl set-ntp no
-  apt-get install ntp
-}
 
 # install_filebeat() { # Moved to pre-install Slipstream recipe b.c. of tty requirement.
 #
@@ -61,5 +57,5 @@ install_ntp{
 #   }
 
 install_S1_toolbox
-install_ntp
+
 echo $?

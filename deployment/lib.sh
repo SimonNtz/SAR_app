@@ -19,7 +19,7 @@ EOF
      fi
 }
 
-install_ntp{
+install_ntp() {
   timedatectl set-ntp no
   apt-get install ntp
 }

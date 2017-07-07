@@ -7,6 +7,8 @@ set -o pipefail
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
 
+source ../lib.sh
+
 install_S1_toolbox() {
 
   JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
@@ -25,6 +27,11 @@ install_S1_toolbox() {
   cd $SNAP_LOC/snap/modules/lib/x86_64/
   ln -s ../amd64/libjhdf.so
   ln -s ../amd64/libjhdf5.so
+}
+
+install_ntp{
+  timedatectl set-ntp no
+  apt-get install ntp
 }
 
 # install_filebeat() { # Moved to pre-install Slipstream recipe b.c. of tty requirement.
@@ -54,5 +61,5 @@ install_S1_toolbox() {
 #   }
 
 install_S1_toolbox
-#install_filebeat
+install_ntp
 echo $?

@@ -19,6 +19,11 @@ EOF
      fi
 }
 
+install_ntp{
+  timedatectl set-ntp no
+  apt-get install ntp
+}
+
 #
 # Eventing.
 # Retrieve the client's Nuvla token through the application component parameters

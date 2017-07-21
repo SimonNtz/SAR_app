@@ -31,7 +31,8 @@ get_data() {
 start_filebeat() {
 
 server_ip=`ss-get --timeout=300 ELK_server:hostname`
-server_hostname=`ss-get --timeout=300 ELK_server:machine-hn`
+#server_hostname=`ss-get --timeout=300 ELK_server:machine-hn`
+#server_hostname=`ss-get --timeout=300 machine-hn`
 
 echo  "$server_ip   $server_hostname">>/etc/hosts
 

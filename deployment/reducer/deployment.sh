@@ -47,4 +47,6 @@ wait_mappers_ready
 
 # Create the final output
 cd ~/SAR_proc
+echo "@REDUCER_RUN :"$(timestamp): "Start conversion."
 ./SAR_reducer.sh
+echo "@REDUCER_RUN :"$(timestamp): "Finish conversion."

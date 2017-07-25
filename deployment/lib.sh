@@ -51,6 +51,10 @@ get_DUIID() {
         /opt/slipstream/client/sbin/slipstream.context
 }
 
+timestamp() {
+  date + "%T"
+}
+
 get_ss_user() {
     awk -F= '/username/ {print $2}' \
         /opt/slipstream/client/sbin/slipstream.context

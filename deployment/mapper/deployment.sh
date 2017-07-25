@@ -11,7 +11,7 @@ source ../lib.sh
 id=`ss-get id`
 my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
-echo "Product for processing: ${my_product[@]}"
+echo "@MAPPER_RUN: "$(timestamp)" - $my_product for processing: ${my_product[@]}"
 
 S3_HOST=`ss-get s3-host`
 S3_BUCKET=`ss-get s3-bucket`
@@ -19,13 +19,14 @@ S3_BUCKET=`ss-get s3-bucket`
 reducer_ip=`ss-get reducer:hostname`
 
 get_data() {
+    echo "@MAPPER_RUN: "$(timestamp) " - Start downloading product."
     bucket=${1?"Provide bucket name."}
     echo $(date)
     for i in ${my_product[@]}; do
         python3  get_data.py "https://$S3_HOST/$S3_BUCKET/" "$i.SAFE"
         #sudo s3cmd get --recursive s3://$bucket/$i.SAFE
     done
-    echo $(date)
+    echo "@MAPPER_RUN: "$(timestamp) " - Finish downloading product."
 }
 
 start_filebeat() {

@@ -42,7 +42,7 @@ wait_mappers_ready() {
         sleep 100
     done
 }
-
+start_filebeat
 wait_mappers_ready
 
 # Create the final output

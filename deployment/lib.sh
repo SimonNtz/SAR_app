@@ -22,7 +22,7 @@ EOF
 #
 # Eventing.
 # Retrieve the client's Nuvla token through the application component parameters
-
+#
 cookiefile=/home/cookies-nuvla.txt
 
 install_slipstream_api(){

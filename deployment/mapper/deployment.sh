@@ -3,15 +3,18 @@ set -e
 set -x
 set -o pipefail
 
+source ../lib.sh
+id=`ss-get id`
+
+echo "@MAPPER_RUN: "$(timestamp)" - \
+            VM started on cloudservice: `ss-get cloudservice` \
+            with service-offer: `ss-get service-offer`."
+
 SAR_data=(`ss-get product-list`)
 [ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."
 
-source ../lib.sh
-
-id=`ss-get id`
 my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
-echo "@MAPPER_RUN: "$(timestamp)" - $my_product for processing: ${my_product[@]}"
 
 S3_HOST=`ss-get s3-host`
 S3_BUCKET=`ss-get s3-bucket`

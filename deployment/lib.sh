@@ -120,6 +120,9 @@ filebeat.prospectors:
     - /var/log/auth.log
     - /var/log/syslog
     - /var/log/slipstream/client/slipstream-node.log
+  fields:
+        tags: ["EOproc"]
+  include_lines: ["^@MAPPER_RUN", "^@REDUCER_RUN", "^@SAR_PROC"]
 
 output.logstash:
   # The Logstash hosts

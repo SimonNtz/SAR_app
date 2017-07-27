@@ -97,10 +97,8 @@ push_product() {
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 
 start_filebeat
-get_data $S3_BUCKET $S3_HOST
-
-
 cd ~/SAR_app/deployment/mapper
+get_data $S3_BUCKET $S3_HOST
 run_proc
 push_product
 

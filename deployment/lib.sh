@@ -11,12 +11,12 @@ secret_key = $3
 
 use_https = True
 EOF
-    if [ "$1" == "sos.exo.io" ] ;then
+  if [ "$1" == "sos.exo.io" ] ;then
         cat >>~/.s3cfg<<EOF
 # For Exoscale only
 signature_v2 = True
 EOF
-     fi
+  fi
 }
 
 #
@@ -89,7 +89,7 @@ event = {'acl': {u'owner': {u'principal': u'$username'.strip(), u'type': u'USER'
 
 api.cimi_add('events', event)
 EOF
-    python $event_script "$msg"
+}
 
 start_filebeat() {
 
@@ -127,7 +127,7 @@ start_filebeat() {
       template.path: "filebeat.template.json"
       template.overwrite: false
     document-type: syslog
-    EOF
+EOF
 
     chmod go-w $filebeat_conf
     filebeat.sh -configtest -c $filebeat_conf
@@ -137,6 +137,4 @@ start_filebeat() {
 
     # Capture filebeat status
     systemctl status filebeat | grep Active
-    }
-
 }

@@ -111,13 +111,23 @@ start_filebeat() {
     #         $filebeat_conf > tmp && mv tmp $filebeat_conf
 
     cat>$filebeat_conf<<EOF
+  filebeat:
+  spool_size: 2048
+  idle_timeout: 5s
     filebeat.prospectors:
     - input_type: log
+      scan_frequency: 1s
+      tail_files: true
+      backoff: 0.5s
+      max_backoff: 1s
 
       paths:
         - /var/log/auth.log
         - /var/log/syslog
         - /var/log/slipstream/client/slipstream-node.log
+        include_lines:['^@MAPPER_RUN','^@REDUCER_RUN' '^@SAR_MAPPER', '^@SAR_PROC']
+        tags:["EOproc"]
+
 
     output.logstash:
       # The Logstash hosts

@@ -6,6 +6,9 @@ set -o pipefail
 
 source ../lib.sh
 
+echo "@REDUCER_RUN: "$(timestamp)" - \
+          VM started with service-offer: `ss-get service-offer`."
+
 S3_HOST=`ss-get --noblock s3-host`
 S3_BUCKET=`ss-get --noblock s3-bucket`
 S3_ACCESS_KEY=`ss-get --noblock s3-access-key`

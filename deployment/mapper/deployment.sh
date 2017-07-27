@@ -3,12 +3,14 @@ set -e
 set -x
 set -o pipefail
 
-SAR_data=(`ss-get product-list`)
-[ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."
-
 source ../lib.sh
 
+echo "@MAPPER_RUN: "$(timestamp)" - \
+              VM started with service-offer `ss-get service-offer`"
+
 id=`ss-get id`
+SAR_data=(`ss-get product-list`)
+[ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."
 my_product=${SAR_data[$id-1]}
 IFS=' ' read -r -a my_product <<< "$my_product"
 echo "@MAPPER_RUN: "$(timestamp)" - $my_product for processing: ${my_product[@]}"

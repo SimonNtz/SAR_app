@@ -6,7 +6,8 @@ set -o pipefail
 source ../lib.sh
 
 echo "@MAPPER_RUN: "$(timestamp)" - \
-              VM started with service-offer `ss-get service-offer`"
+            VM started on cloudservice: `ss-get cloudservice` \
+            with service-offer: `ss-get service-offer`." 
 
 id=`ss-get id`
 SAR_data=(`ss-get product-list`)

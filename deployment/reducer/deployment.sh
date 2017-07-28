@@ -5,9 +5,6 @@ set -x
 set -o pipefail
 
 source ../lib.sh
-
-echo "@REDUCER_RUN - "$(timestamp)" - start deployment"
-
 S3_HOST=`ss-get --noblock s3-host`
 S3_BUCKET=`ss-get --noblock s3-bucket`
 S3_ACCESS_KEY=`ss-get --noblock s3-access-key`
@@ -45,6 +42,7 @@ wait_mappers_ready() {
     done
 }
 start_filebeat
+echo "@REDUCER_RUN - "$(timestamp)" - start deployment"
 cd ~/SAR_app/deployment/reducer
 wait_mappers_ready
 # Create the final output

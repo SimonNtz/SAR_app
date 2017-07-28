@@ -5,9 +5,6 @@ set -o pipefail
 
 source ../lib.sh
 id=`ss-get id`
-
-echo "@MAPPER_RUN - "$(timestamp)" - start deployment"
-
 SAR_data=(`ss-get product-list`)
 [ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."
 
@@ -100,6 +97,7 @@ push_product() {
 #config_s3 $S3_HOST $S3_ACCESS_KEY $S3_SECRET_KEY
 
 start_filebeat
+echo "@MAPPER_RUN - "$(timestamp)" - start deployment"
 cd ~/SAR_app/deployment/mapper
 get_data $S3_BUCKET $S3_HOST
 run_proc

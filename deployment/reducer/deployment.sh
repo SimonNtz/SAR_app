@@ -46,8 +46,8 @@ wait_mappers_ready() {
         sleep 100
     done
 }
-
 start_filebeat
+cd ~/SAR_app/deployment/reducer
 wait_mappers_ready
 # Create the final output
 cd ~/SAR_proc

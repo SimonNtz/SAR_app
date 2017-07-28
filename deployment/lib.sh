@@ -105,7 +105,10 @@ echo  "$server_ip   $server_hostname">>/etc/hosts
 cd /etc/filebeat/
 
 filebeat_conf=filebeat.yml
-
+duiid=$(get_DUIID)
+nodename=`ss-get nodename`
+cloud=`ss-get cloudservice`
+service-offer=`ss-get service-offer`
 #Set Logstash as an input instead of ElasticStash
 sed -i '81,83 s/^/#/' $filebeat_conf
 # awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog\n \
@@ -121,7 +124,11 @@ filebeat.prospectors:
     - /var/log/syslog
     - /var/log/slipstream/client/slipstream-node.log
   fields:
-        tags: ["EOproc"]
+        tags: "EOproc"
+        duuid: '$duuid'
+        nodename: '$nodename'
+        cloud:     '$cloud'
+        service-offer: '$service-offer'
   include_lines: ["^@MAPPER_RUN", "^@REDUCER_RUN", "^@SAR_PROC"]
 
 output.logstash:
@@ -142,4 +149,8 @@ sudo systemctl enable filebeat
 
 # Capture filebeat status
 systemctl status filebeat | grep Active
+}
+
+get_file_size() {
+  du -h -d 0 $1 | awk '{print $1}'
 }

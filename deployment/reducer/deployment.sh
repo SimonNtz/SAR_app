@@ -6,9 +6,7 @@ set -o pipefail
 
 source ../lib.sh
 
-echo "@REDUCER_RUN: "$(timestamp)" - \
-            VM started on cloudservice: `ss-get cloudservice` \
-            with service-offer: `ss-get service-offer`."
+echo "@REDUCER_RUN - "$(timestamp)" - start deployment"
 
 S3_HOST=`ss-get --noblock s3-host`
 S3_BUCKET=`ss-get --noblock s3-bucket`
@@ -51,6 +49,4 @@ cd ~/SAR_app/deployment/reducer
 wait_mappers_ready
 # Create the final output
 cd ~/SAR_proc
-echo "@REDUCER_RUN :"$(timestamp): "Start conversion."
 ./SAR_reducer.sh
-echo "@REDUCER_RUN :"$(timestamp): "Finish conversion."

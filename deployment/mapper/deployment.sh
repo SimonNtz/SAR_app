@@ -6,9 +6,7 @@ set -o pipefail
 source ../lib.sh
 id=`ss-get id`
 
-echo "@MAPPER_RUN: "$(timestamp)" - \
-            VM started on cloudservice: `ss-get cloudservice` \
-            with service-offer: `ss-get service-offer`."
+echo "@MAPPER_RUN - "$(timestamp)" - start deployment"
 
 SAR_data=(`ss-get product-list`)
 [ -n "$SAR_data" ] || ss-abort -- "product-list should not be empty."
@@ -22,14 +20,16 @@ S3_BUCKET=`ss-get s3-bucket`
 reducer_ip=`ss-get reducer:hostname`
 
 get_data() {
-    echo "@MAPPER_RUN: "$(timestamp) " - Start downloading product."
+    echo "@MAPPER_RUN - "$(timestamp) " - start downloading"
     bucket=${1?"Provide bucket name."}
     echo $(date)
     for i in ${my_product[@]}; do
         python3  get_data.py "https://$S3_HOST/$S3_BUCKET/" "$i.SAFE"
+        echo "@MAPPER_RUN - "$(timestamp) " - finish downloading - \
+        $i.SAFE - `get_file_size $i.SAFE`"
         #sudo s3cmd get --recursive s3://$bucket/$i.SAFE
     done
-    echo "@MAPPER_RUN: "$(timestamp) " - Finish downloading product."
+
 }
 
 # start_filebeat() {
@@ -104,5 +104,5 @@ cd ~/SAR_app/deployment/mapper
 get_data $S3_BUCKET $S3_HOST
 run_proc
 push_product
-
+echo "@MAPPER_RUN - "$(timestamp)" - finish deployment"
 ss-set ready true

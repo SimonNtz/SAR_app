@@ -7,7 +7,7 @@ set -o pipefail
 # Functional on Ubuntu distribution Version 16.04 LTS
 #
 
-
+source ../lib.sh
 
 install_S1_toolbox() {
 
@@ -56,6 +56,7 @@ install_S1_toolbox() {
 #       kill -15 $XPID
 #   }
 
+echo "@MAPPER_RUN - "$(timestamp)" - start install"
 install_S1_toolbox
-
 echo $?
+echo "@MAPPER_RUN - "$(timestamp)" - finish install"

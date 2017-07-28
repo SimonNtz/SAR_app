@@ -108,7 +108,7 @@ filebeat_conf=filebeat.yml
 duiid=$(get_DUIID)
 nodename=`ss-get nodename`
 cloud=`ss-get cloudservice`
-service-offer=`ss-get service-offer`
+serviceOffer=`ss-get service-offer`
 #Set Logstash as an input instead of ElasticStash
 sed -i '81,83 s/^/#/' $filebeat_conf
 # awk '{ if (NR == 22) print "    - /var/log/auth.log\n    - /var/log/syslog\n \
@@ -128,7 +128,7 @@ filebeat.prospectors:
         duuid: '$duuid'
         nodename: '$nodename'
         cloud:     '$cloud'
-        service-offer: '$service-offer'
+        service-offer: '$serviceOffer'
   include_lines: ["^@MAPPER_RUN", "^@REDUCER_RUN", "^@SAR_PROC"]
 
 output.logstash:

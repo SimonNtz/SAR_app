@@ -125,7 +125,7 @@ filebeat.prospectors:
     - /var/log/slipstream/client/slipstream-node.log
   fields:
         tags: "EOproc"
-        duuid: '$duuid'
+        duuid: '$duiid'
         nodename: '$nodename'
         cloud:     '$cloud'
         service-offer: '$serviceOffer'

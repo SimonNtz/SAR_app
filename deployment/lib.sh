@@ -120,7 +120,7 @@ filebeat.prospectors:
 - input_type: log
   scan_frequency: 1s
   close_inactive: 10m
-  filebeat.idle_timeout: 10s  
+  filebeat.idle_timeout: 10s
   paths:
     - /var/log/auth.log
     - /var/log/syslog
@@ -156,7 +156,6 @@ filebeat.sh -configtest -c $filebeat_conf
 
 sudo systemctl start filebeat
 sudo systemctl enable filebeat
-logging.metrics.period:
 
 # Capture filebeat status
 systemctl status filebeat | grep Active

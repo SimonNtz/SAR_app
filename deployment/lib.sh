@@ -118,7 +118,9 @@ sed -i '81,83 s/^/#/' $filebeat_conf
 cat>$filebeat_conf<<EOF
 filebeat.prospectors:
 - input_type: log
-
+  scan_frequency: 1s
+  close_inactive: 10m
+  filebeat.idle_timeout: 10s  
   paths:
     - /var/log/auth.log
     - /var/log/syslog
@@ -135,7 +137,8 @@ filebeat.prospectors:
                    "started ?with ?pid*",
                    ".*currently ?in ?Initializing$",
                    ".*currently.*in.*Provisioning$"]
-close_inactive:10m
+
+
 
 
 output.logstash:

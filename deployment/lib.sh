@@ -129,7 +129,12 @@ filebeat.prospectors:
         nodename: '$nodename'
         cloud:     '$cloud'
         service-offer: '$serviceOffer'
-  include_lines: ["^@MAPPER_RUN", "^@REDUCER_RUN", "^@SAR_PROC"]
+  include_lines: ["^@MAPPER_RUN",
+                  "^@REDUCER_RUN",
+                   "^@SAR_PROC",
+                   "\bstarted\b.*\bwith\b.*\bpid",
+                   "\bcurrently\b.*\in\b.*\Initializing",
+                   "\bcurrently\b.*\in\b.*\Provisioning"]
 
 output.logstash:
   # The Logstash hosts

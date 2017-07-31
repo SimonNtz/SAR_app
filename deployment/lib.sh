@@ -132,9 +132,11 @@ filebeat.prospectors:
   include_lines: ["^@MAPPER_RUN",
                   "^@REDUCER_RUN",
                    "^@SAR_PROC",
-                   "started.*with.*pid*",
-                   ".*currently.*in.*Initializing",
-                   ".*currently.*in.*Provisioning"]
+                   "started ?with ?pid*",
+                   ".*currently ?in ?Initializing$",
+                   ".*currently.*in.*Provisioning$"]
+close_inactive:10m
+
 
 output.logstash:
   # The Logstash hosts
@@ -151,6 +153,7 @@ filebeat.sh -configtest -c $filebeat_conf
 
 sudo systemctl start filebeat
 sudo systemctl enable filebeat
+logging.metrics.period:
 
 # Capture filebeat status
 systemctl status filebeat | grep Active

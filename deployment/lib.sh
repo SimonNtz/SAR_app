@@ -132,7 +132,7 @@ filebeat.prospectors:
   include_lines: ["^@MAPPER_RUN",
                   "^@REDUCER_RUN",
                    "^@SAR_PROC",
-                   "*started.*with.*pid",
+                   "*started.*with.*pid*",
                    "*currently.*in.*Initializing",
                    "*currently.*in.*Provisioning"]
 

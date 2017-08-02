@@ -120,7 +120,7 @@ filebeat.prospectors:
 - input_type: log
   scan_frequency: 1s
   close_inactive: 10m
-  filebeat.idle_timeout: 10s
+  filebeat.idle_timeout: 10m
   paths:
     - /var/log/auth.log
     - /var/log/syslog
@@ -135,8 +135,8 @@ filebeat.prospectors:
                   "^@REDUCER_RUN",
                    "^@SAR_PROC",
                    "started ?with ?pid*",
-                   ".*currently ?in ?Initializing$",
-                   ".*currently.*in.*Provisioning$"]
+                   ".*currently ?in ?Initializing*",
+                   ".*currently ?in ?Provisioning*"]
 
 
 

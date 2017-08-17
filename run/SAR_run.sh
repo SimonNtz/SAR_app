@@ -36,8 +36,8 @@ python -u `which ss-execute` \
 
 # if [ "$?" == "0" ]; then
 #     run=`awk '/::: Waiting/ {print $7}' $LOG`
-#     echo "::: URL with the computed result:"
+#     echo "server IP:"
 #     curl -u $SLIPSTREAM_USERNAME:$SLIPSTREAM_PASSWORD \
-#         $run/ss:url.service
+#         $run/machine:hostname
 #     echo
 # fi

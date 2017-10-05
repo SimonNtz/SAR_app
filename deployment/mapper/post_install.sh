@@ -21,7 +21,7 @@ install_S1_toolbox() {
   # b.c. the cloud service can change it deliberately
   curl -O http://step.esa.int/downloads/5.0/installers/$SNAP_INSTALLER
   chmod +x $SNAP_INSTALLER
-  echo -e "o\n1\n/usr/local/snap\n2\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
+  echo -e "o\n1\n/usr/local/snap\n2,3,4\ny\ny\ny\n/usr/bin/python2.7\ny\n" | ./$SNAP_INSTALLER
 
   # File system configuration for SNAP' datafiles
   cd $SNAP_LOC/snap/modules/lib/x86_64/
